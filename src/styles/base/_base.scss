@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: $m;
+  background: white;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled{
+  cursor: default;
+}
+
+.is-active {
+  font-weight: bold;
+}
+
+//font classes
+
+.logo {
+  font-family: Roboto, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  line-height: normal;
+  font-size: $l;
+  letter-spacing: .08rem;
+
+  color: $gray;
+}
+
+.body {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  font-size: $m;
+  //letter-spacing: 1px;
+
+  color: $black;
+}
+
+.node-text {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: $s;
+  //letter-spacing: 1px;
+
+  color: $black;
+}
+
+
+// maybe font mixins will be helpful???
+
+//@mixin font($size: $m-size, $weight: 400, $color: $black, $style: normal, $line-height: normal, $family: (Roboto, sans-serif) ) {
+//  font-family: $family;
+//  font-style: $style;
+//  font-weight: $weight;
+//  line-height: $line-height;
+//  font-size: $size;
+//  color: $color;
+//}
