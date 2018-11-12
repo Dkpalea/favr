@@ -1,10 +1,10 @@
 const fbConfig = {
-  apiKey: `AIzaSyD5v1K8JGqkfxMyRWCeMBdx-hhu13If9_M`,
-  authDomain: `confer-a24c1.firebaseapp.com`,
-  databaseURL: `https://confer-a24c1.firebaseio.com`,
-  projectId: `confer-a24c1`,
-  storageBucket: `confer-a24c1.appspot.com`,
-  messagingSenderId: `620473470592`,
+  apiKey: `AIzaSyAPMtcbF5wxSW4SgJSVdMtWD2MyWFhn06g`,
+  authDomain: `favr-87014.firebaseapp.com`,
+  databaseURL: `https://favr-87014.firebaseio.com`,
+  projectId: `favr-87014`,
+  storageBucket: `favr-87014.appspot.com`,
+  messagingSenderId: `298015916624`,
 };
 
 export default fbConfig;
