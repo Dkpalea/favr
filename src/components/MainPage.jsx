@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import AuthButton from "./AuthButton";
-import FirebaseTestComponent from "./FirebaseTestComponent";
+import NodeList from "./FirebaseFetchTest";
 
 class MainPage extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class MainPage extends Component {
     return (
       <div>
         <AuthButton />
-        <FirebaseTestComponent />
+        <NodeList />
         <span>{topicLabel}</span>
         <span>db.</span>
       </div>
