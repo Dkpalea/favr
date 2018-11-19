@@ -41,6 +41,7 @@
     "react-router-prop-types": "^1.0.4",
     "redux": "^4.0.1",
     "redux-firestore": "^0.5.8",
+    "reselect": "^4.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "svg-url-loader": "^2.3.2",
