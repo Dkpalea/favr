@@ -1,0 +1,163 @@
+.favr-container {
+  position: relative;
+}
+
+.offer-amount {
+  position: absolute;
+  top: 45px;
+  left: -5.0vw;
+  //z-index: 1;
+  text-align: right;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  font-size: $xxl;
+  letter-spacing: -0.10rem;
+  color: $black;
+
+  .dollar-sign {
+    position: absolute;
+    font-size: $l;
+    top: -2px;
+    left: -12px;
+  }
+}
+
+.favr-card {
+  background: $white;
+  box-shadow: 4px 12px 24px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  max-width: 700px;
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+}
+
+.favr-card-info-font {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+
+.favr-title {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  font-size: $xl;
+  letter-spacing: 0.04em;
+  color: $black;
+}
+
+.favr-card-profile-pic {
+  display: inline-block;
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: $gray;
+}
+
+.favr-card-username {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 6px;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+
+  margin: 8px 0 8px 0;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.favr-card-upper-info {
+  display: flex;
+  align-items: center;
+
+  margin: 0 0 20px 20px;
+
+  .favr-card-profile-pic {
+    margin-right: 12px;
+  }
+
+  .favr-card-upper-info-text {
+    display: inline-block;
+
+    .favr-card-upper-info-text-under {
+
+      .favr-card-upper-info-expiration-low {
+        color: $red;
+      }
+    }
+  }
+}
+
+.favr-card-lower-info {
+  display: flex;
+
+  .claimed-label {
+    padding-bottom: 20px;
+    margin: 0 20px 0 20px;
+  }
+
+  .favr-card-lower-info-container-button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .favr-card-lower-info-pic-text-container {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .favr-card-profile-pic {
+      margin: 0 10px 0 0
+    }
+
+    .favr-card-lower-info-text {
+      display: inline-block;
+
+      .favr-card-lower-info-text-under {
+
+      }
+    }
+  }
+
+  button:hover {
+    background-color: darken($green, 5%);
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  .favr-card-action-button {
+    display: flex;
+    width: 155px;
+    height: 40px;
+    border-radius: 50px;
+    margin-right: 20px;
+    background-color: $green;
+    transition: background-color .25s ease;
+
+    div {
+      font-family: Roboto, sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      line-height: normal;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 0.04em;
+
+      margin: auto;
+      color: $white;
+    }
+
+  }
+}

@@ -1,0 +1,15 @@
+@import '../../node_modules/normalize.css/normalize.css';
+@import './base/settings';
+@import './base/base';
+
+//components
+@import './components/knowledgeMap';
+@import './components/favr';
+@import './components/feed';
+@import './components/navbar';
+@import './components/mainpage';
+
+
+html {
+  font-size: 62.5%;
+}

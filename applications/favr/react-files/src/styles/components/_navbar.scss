@@ -1,0 +1,21 @@
+.navbar {
+  width: 100%;
+  position: fixed;
+  background-color: $light-gray;
+  padding: 1vw;
+  z-index: 2;
+
+  .logo {
+    justify-self: center;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: $l;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    color: $blue;
+  }
+}
