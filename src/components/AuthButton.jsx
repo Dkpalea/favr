@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -24,7 +25,7 @@ const AuthButton = props => {
             () => login({ provider: `google`, type: `popup` })
           }
         >
-          Log in with Google
+        Log in with Google
         </button>
       </div>
     );

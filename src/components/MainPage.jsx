@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import AuthButton from "./AuthButton";
+import AcceptButton from "./accept_button";
 import FirebaseTestComponent from "./FirebaseTestComponent";
 
 class MainPage extends Component {
@@ -22,6 +23,7 @@ class MainPage extends Component {
     return (
       <div>
         <AuthButton />
+        <AcceptButton />
         <FirebaseTestComponent />
         <span>{topicLabel}</span>
         <span>db.</span>
