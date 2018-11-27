@@ -29,19 +29,20 @@ db.define_table('post',
                 Field('post_time', 'datetime', default=get_current_time()),
                 )
 
-db.define_table('favr',
+"""db.define_table('favr',
                 Field('title'),
                 Field('details'),
                 Field('pickupLocation'),
                 Field('dropoffLocation'),
                 Field('expirationTime', 'datetime'),
                 Field('startTime'),
-                Field('__requestedBy', default=get_user_email()),
-                Field('__fulfilledBy', 'reference user'),
+                Field('REFrequestedBy', default=get_user_email()),
+                Field('REFfulfilledBy', 'reference user'),
                 Field('requestTime', default=get_current_time()),
                 Field('requestAmount'),
                 Field('isComplete', default=False)
                 )
+                """
 
 # Thumbs
 db.define_table('thumb',
