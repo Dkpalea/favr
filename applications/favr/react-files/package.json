@@ -14,7 +14,7 @@
   "author": "Dustin Palea",
   "main": "./src/app.jsx",
   "scripts": {
-    "build": "webpack --mode production && cp public/bundle.js ../static/js/bundle.js",
+    "build": "webpack --mode production && cp public/bundle.js ../static/js/default_index.js",
     "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -3,11 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 user-scalable=0">
-    <title>yjdasdfssafoo</title>
+    <title>Favr</title>
 </head>
 <body>
+    <script>
+      let storeState = {
+        feedFavrs: [], // not complete && not posted/requested by logged in user
+        myRequested: [], // all favrs requested by logged in user
+        myAccepted: [], // all favrs accepted by logged in user
+      };
+      const userIsLoggedIn = {{='false' if auth.user is None else 'true'}};
+      const loggedInUserEmail = `{{='' if auth.user is None else str (auth.user.email)}}`;
+      let myMessage = `hello`;
+      const addFavrUrl = `{{=URL('api', 'addFavr', user_signature=True)}}`;
+      const getFavrUrl = `{{=URL('api', 'getFavr')}}`;
+      const removeFavrUrl = `{{=URL('api', 'removeFavr')}}`;
+      const updateFavr = `{{=URL('api', 'updateFavr')}}`;
+      const acceptFavr = `{{=URL('api', 'acceptFavr')}}`;
+      const cancelAcceptedFavr = `{{=URL('api', 'cancelAcceptedFavr')}}`;
+    </script>
     <div id="app"></div>
-    <script>let myMessage = `hello`;</script>
-    <script type="text/javascript" src="{{=URL('static', 'js/bundle.js')}}"></script>
+    <script type="text/javascript" src="{{=URL('static', 'js/default_index.js')}}"></script>
 </body>
 </html>

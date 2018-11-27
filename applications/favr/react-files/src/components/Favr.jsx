@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import addFavr from '../stateStoreAndFunctions';
 
 class Favr extends Component {
 
@@ -8,7 +9,7 @@ class Favr extends Component {
       <div className="favr-container">
         <div className="offer-amount">
           <span className="dollar-sign">$</span>
-          13
+          14
         </div>
         {/* Upper stuff */}
         <div className="favr-card-upper-info">

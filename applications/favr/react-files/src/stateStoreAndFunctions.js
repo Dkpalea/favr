@@ -1,10 +1,10 @@
 import $ from 'jquery';
 
-let storeState = {
-  feedFavrs: [], // not complete && not posted/requested by logged in user
-  myRequested: [], // all favrs requested by logged in user
-  myAccepted: [], // all favrs accepted by logged in user
-};
+// let storeState = {
+//   feedFavrs: [], // not complete && not posted/requested by logged in user
+//   myRequested: [], // all favrs requested by logged in user
+//   myAccepted: [], // all favrs accepted by logged in user
+// };
 
 let favrObjectSchema = {
   isShowingDetails: false,
@@ -31,6 +31,9 @@ let favrObjectSchema = {
 
 // Add favr
 const addFavr = () => {};
+
+// Get favr
+const getFavr = () => {};
 
 // Remove favr
 const removeFavr = () => {};
