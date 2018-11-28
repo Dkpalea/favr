@@ -16,7 +16,50 @@ class MainPage extends Component {
       <div className="main-page-container">
         <Navbar />
         <div className="main-feed-container">
-          <Feed />
+          <Feed feedFavrs={[{
+            favrId: `123`,
+            title: `myTitle`,
+            details: `myDetails`,
+            pickupLocation: `fromHere`,
+            dropoffLocation: `toThere`,
+            expirationTime: new Date(Date.now() + 800000),
+            REFrequestedBy: {
+              email: `12345@12345.com`,
+              profilePicCode: ``,
+              firstName: `firstName`,
+              lastName: `lastName`,
+            },
+            REFfulFilledBy: {
+              email: `1234@1234.com`,
+              profilePicCode: ``,
+              firstName: `Dustin`,
+              lastName: `Palea`,
+            },
+            requestAmount: 12,
+          },
+          {
+            favrId: `1234`,
+            title: `myTitle`,
+            details: `myDetails`,
+            pickupLocation: `fromHere`,
+            dropoffLocation: `toThere`,
+            expirationTime: new Date(Date.now() + 55050),
+            REFrequestedBy: {
+              email: `12345@12345.com`,
+              profilePicCode: ``,
+              firstName: `firstName`,
+              lastName: `lastName`,
+            },
+            REFfulFilledBy: {
+              email: `1234@1234.com`,
+              profilePicCode: ``,
+              firstName: `Dustin`,
+              lastName: `Palea`,
+            },
+            requestAmount: 12,
+          },
+          ]}
+          />
         </div>
       </div>
     );

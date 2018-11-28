@@ -92,3 +92,137 @@ CREATE TABLE "web2py_session_favr"(
     "session_data" BLOB
 );
 success!
+timestamp: 2018-11-27T13:34:31.281986
+CREATE TABLE "favr"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "title" CHAR(512),
+    "details" CHAR(512),
+    "pickupLocation" CHAR(512),
+    "dropoffLocation" CHAR(512),
+    "expirationTime" TIMESTAMP,
+    "startTime" CHAR(512),
+    "REFrequestedBy" CHAR(512),
+    "REFfulfilledBy" CHAR(512),
+    "requestTime" CHAR(512),
+    "requestAmount" CHAR(512),
+    "isComplete" CHAR(512)
+);
+success!
+timestamp: 2018-11-27T14:05:11.421486
+ALTER TABLE "favr" ADD "fulfillerStartTime" CHAR(512);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!

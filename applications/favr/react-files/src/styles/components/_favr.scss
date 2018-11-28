@@ -28,7 +28,7 @@
   background: $white;
   box-shadow: 4px 12px 24px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
-  max-width: 700px;
+  width: 650px;
   padding: 1rem 1.5rem 1.5rem 1.5rem;
 }
 
@@ -69,6 +69,16 @@
   letter-spacing: 0.04em;
 
   margin: 8px 0 8px 0;
+}
+
+.details-container {
+  -moz-transition: height .35s ease-in-out;
+  -ms-transition: height .35s;
+  -o-transition: height .35s ease-in-out;
+  -webkit-transition: height .35s ease-in-out;
+  transition: height .35s ease-in-out;
+  height: 0;
+  overflow: hidden;
 }
 
 .flex-container {

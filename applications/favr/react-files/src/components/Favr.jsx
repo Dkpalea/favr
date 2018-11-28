@@ -1,32 +1,94 @@
 import React, { Component } from 'react';
-import addFavr from '../stateStoreAndFunctions';
+import PropTypes from "prop-types";
+import { addFavr } from '../stateStoreAndFunctions';
+
+const favr = {
+  favrId: `123`,
+  title: `myTitle`,
+  details: `myDetails`,
+  pickupLocation: `fromHere`,
+  dropoffLocation: `toThere`,
+  expirationTime: new Date(Date.now()),
+  REFrequestedBy: {
+    email: `12345@12345.com`,
+    profilePicCode: ``,
+    firstName: `firstName`,
+    lastName: `lastName`,
+  },
+  REFfulFilledBy: {
+    email: `1234@1234.com`,
+    profilePicCode: ``,
+    firstName: `Dustin`,
+    lastName: `Palea`,
+  },
+  requestAmount: 12,
+};
 
 class Favr extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {detailsAreShowing: false, minutesRemaining: null};
+    this.showDetails = this.showDetails.bind(this);
+  }
+
+  showDetails = favrId => {
+    let growDiv = document.getElementById(`favr-${favrId}-details`);
+    // let growDiv = document.getElementById(`swag`);
+    console.log(favrId);
+    // let growDiv = document.getElementById(`swag`);
+    if (growDiv.clientHeight) {
+      growDiv.style.height = 0;
+    } else {
+      let container = document.querySelector(`.measuring-container`);
+      growDiv.style.height = `${container.clientHeight}px`;
+    }
+    //document.getElementById(`more-button`).value=document.getElementById(`more-button`).value===`Read more`?`Read less`:`Read more`;
+    this.setState(state => {
+      return {detailsAreShowing: !state.detailsAreShowing};
+    });
+  };
+
   render() {
+
+    const { detailsAreShowing } = this.state;
+
+    const { favr } = this.props;
+
+    const {
+      favrId,
+      title,
+      details,
+      pickupLocation,
+      dropoffLocation,
+      expirationTime,
+      REFrequestedBy,
+      REFfulFilledBy,
+      requestAmount,
+    } = favr;
 
     return (
       <div className="favr-container">
         <div className="offer-amount">
           <span className="dollar-sign">$</span>
-          14
+          {requestAmount}
         </div>
         {/* Upper stuff */}
         <div className="favr-card-upper-info">
           <div className="favr-card-profile-pic" />
           <div className="favr-card-upper-info-text">
-            <div className="favr-card-username">Dustin Palea</div>
+            <div className="favr-card-username">{REFrequestedBy.email===loggedInUserEmail?(`You!`):(`${REFrequestedBy.firstName} ${REFrequestedBy.lastName}`)}</div>
             <div className="favr-card-upper-info-text-under">
               <span className="favr-card-info-font">
                 <span className="favr-card-upper-info-expiration-low">expires in 8m</span>
-                {`  |  pickup from Owl's Nest  |  delivery to McHenry`}
+                {`  |  pickup from ${pickupLocation}  |  delivery to ${dropoffLocation}`}
               </span>
             </div>
           </div>
         </div>
         {/* Title */}
         <div className="favr-card">
-          <div className="favr-title">Can someone get me a burrito from the Owl&#39;s nest?</div>
+          <div className="favr-title">{title}</div>
         </div>
         {/* Lower stuff */}
         <div className="favr-card-lower-info">
@@ -36,19 +98,56 @@ class Favr extends Component {
               <div className="favr-card-lower-info-pic-text-container">
                 <div className="favr-card-profile-pic" />
                 <div className="favr-card-lower-info-text">
-                  <div className="favr-card-username">You!</div>
+                  <div className="favr-card-username">{REFfulFilledBy.email===loggedInUserEmail?(`You!`):(`${REFfulFilledBy.firstName} ${REFfulFilledBy.lastName}`)}</div>
                   <div className="favr-card-info-font favr-card-lower-info-text-under">started 10min ago</div>
                 </div>
               </div>
             </div>
-            <button type="submit" className="favr-card-action-button">
-              <div>See details</div>
+            <button type="submit" className="favr-card-action-button" onClick={() => this.showDetails(favrId)}>
+              {/* addFavr(title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount */}
+              <div>{detailsAreShowing?`Hide details`:`See details`}</div>
             </button>
+          </div>
+        </div>
+        {/* id={`favr-${favrId}-details`} */}
+        <div id={`favr-${favrId}-details`} className="details-container">
+          <div className="measuring-container">
+            <div className="favr-description">{details}</div>
           </div>
         </div>
       </div>
     );
   }
 }
+
+Favr.propTypes = {
+  favr: PropTypes.shape({
+    favrId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
+    pickupLocation: PropTypes.string.isRequired,
+    dropoffLocation: PropTypes.string.isRequired,
+    expirationTime: PropTypes.instanceOf(Date).isRequired,
+    REFrequestedBy: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      profilePicCode: PropTypes.string.isRequired,
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+    }).isRequired,
+    REFfulFilledBy: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      profilePicCode: PropTypes.string.isRequired,
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+    }).isRequired,
+    requestAmount: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+// NodeList.defaultProps = {
+//   uid: null,
+//   nodes: [],
+//   selectedNode: null,
+// };
 
 export default Favr;

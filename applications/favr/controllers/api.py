@@ -1,6 +1,3 @@
-# Here go your api methods.
-
-
 @auth.requires_signature()
 def add_post():
     post_id = db.post.insert(
@@ -9,6 +6,19 @@ def add_post():
     )
     # We return the id of the new post, so we can insert it along all the others.
     return response.json(dict(post_id=post_id))
+
+
+# @auth.requires_signature()
+def addFavr():
+    favrId = db.favr.insert(
+        title=request.vars.title,
+        details=request.vars.details,
+        pickupLocation=request.vars.pickupLocation,
+        dropoffLocation=request.vars.dropoffLocation,
+        expirationTime=request.vars.expirationTime,
+        requestAmount=request.vars.requestAmount
+    )
+    return response.json(dict(postId=favrId))
 
 
 def get_post_list():

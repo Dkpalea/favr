@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 import Favr from './Favr';
 
 class Feed extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {favrs: [{id: 1}, {id: 2}, {id: 3}, {id: 4}]};
   }
 
   render() {
 
-    const {favrs} = this.state;
+    const {feedFavrs} = this.props;
 
-    const favrComponents = favrs.map(favr => {
-      console.log(myMessage);
+    const favrComponents = feedFavrs.map(favr => {
       return (
-        <div key={favr.id} className="favrs-container">
+        <div key={`favr-${favr.favrId}`} className="favrs-container">
           <div className="favr-in-feed">
-            <Favr />
+            <Favr favr={favr} />
           </div>
           <hr />
         </div>
@@ -30,5 +29,33 @@ class Feed extends Component {
     );
   }
 }
+
+Feed.propTypes = {
+  feedFavrs: PropTypes.arrayOf(PropTypes.shape({
+    favrId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired,
+    pickupLocation: PropTypes.string.isRequired,
+    dropoffLocation: PropTypes.string.isRequired,
+    expirationTime: PropTypes.instanceOf(Date).isRequired,
+    REFrequestedBy: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      profilePicCode: PropTypes.string.isRequired,
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+    }).isRequired,
+    REFfulFilledBy: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      profilePicCode: PropTypes.string.isRequired,
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+    }).isRequired,
+    requestAmount: PropTypes.number.isRequired,
+  })),
+};
+
+Feed.defaultProps = {
+  feedFavrs: [],
+};
 
 export default Feed;
