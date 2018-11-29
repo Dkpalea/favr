@@ -23,7 +23,7 @@ class MainPage extends Component {
             details: `myDetails`,
             pickupLocation: `fromHere`,
             dropoffLocation: `toThere`,
-            expirationTime: now,
+            expirationTime: now.getTime(),
             REFrequestedBy: {
               email: `12345@12345.com`,
               profilePicCode: ``,
@@ -44,7 +44,7 @@ class MainPage extends Component {
             details: `myDetails`,
             pickupLocation: `fromHere`,
             dropoffLocation: `toThere`,
-            expirationTime: now,
+            expirationTime: now.getTime(),
             REFrequestedBy: {
               email: `12345@12345.com`,
               profilePicCode: ``,

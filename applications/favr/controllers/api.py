@@ -1,3 +1,5 @@
+import datetime
+
 @auth.requires_signature()
 def add_post():
     post_id = db.post.insert(
@@ -15,10 +17,10 @@ def addFavr():
         details=request.vars.details,
         pickupLocation=request.vars.pickupLocation,
         dropoffLocation=request.vars.dropoffLocation,
-        expirationTime=request.vars.expirationTime,
+        expirationTime=datetime.datetime.utcfromtimestamp(float(request.vars.expirationTime)/1000.0),
         requestAmount=request.vars.requestAmount
     )
-    return response.json(dict(postId=favrId))
+    return response.json(dict(favrId=favrId))
 
 def getFavr():
     results = []
@@ -28,7 +30,7 @@ def getFavr():
             rows = db(db.favr.REFrequestedBy == auth.user.email and
                       db.favr.isComplete == False
                       ).select(
-                        db.favr.ALL, orderby=db.favr.requestTime).first()
+                        db.favr.ALL, orderby=db.favr.requestTime)
             print('here')
         elif request.vars.setCode == 'myAccepted':
             rows = db(db.favr.REFrequestedBy != auth.user.email and
@@ -43,15 +45,20 @@ def getFavr():
     else:
         rows = db(db.favr.isComplete == False).select(db.favr.ALL, orderby=db.favr.requestTime)
 
+    # print(type(rows))
+
     if rows is not None:
         for row in rows:
+            # print(type(row))
             REFrequestedByRow = db(db.auth_user.email == row.REFrequestedBy).select(
                 db.auth_user.first_name, db.auth_user.first_name).first()
+            # error here
             REFrequestedBy = dict(
                 email = row.REFrequestedBy,
                 firstName = REFrequestedByRow.first_name,
                 lastName = REFrequestedByRow.last_name,
             )
+            print('here')
             REFfulfilledBy = dict(
                 email=row.REFfulfilledBy,
                 firstName=None,

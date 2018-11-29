@@ -105,3 +105,118 @@ success!
 success!
 success!
 success!
+success!
+timestamp: 2018-11-28T18:18:44.651454
+CREATE TABLE "test"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "title" CHAR(512),
+    "details" CHAR(512),
+    "pickupLocation" CHAR(512),
+    "dropoffLocation" CHAR(512),
+    "expirationTime" TIMESTAMP,
+    "fulfillerStartTime" TIMESTAMP,
+    "REFrequestedBy" CHAR(512),
+    "REFfulfilledBy" CHAR(512),
+    "requestTime" TIMESTAMP,
+    "requestAmount" CHAR(512),
+    "isComplete" CHAR(512)
+);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!

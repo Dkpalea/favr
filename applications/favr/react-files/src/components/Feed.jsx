@@ -40,7 +40,7 @@ Feed.propTypes = {
     details: PropTypes.string.isRequired,
     pickupLocation: PropTypes.string.isRequired,
     dropoffLocation: PropTypes.string.isRequired,
-    expirationTime: PropTypes.instanceOf(Date).isRequired,
+    expirationTime: PropTypes.number.isRequired,
     REFrequestedBy: PropTypes.shape({
       email: PropTypes.string.isRequired,
       profilePicCode: PropTypes.string.isRequired,

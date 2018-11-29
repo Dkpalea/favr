@@ -35,7 +35,7 @@ class Favr extends Component {
   componentWillMount() {
     let { timeRemaining } = this.state;
     const { favr: {expirationTime} } = this.props;
-    let remainingTimeInMil = expirationTime.getTime() - Date.now();
+    let remainingTimeInMil = expirationTime - Date.now();
     this.setState({timeRemaining: Math.floor(remainingTimeInMil/60000)});
     const intervalId = setInterval(() => {
       // favr expired, clear timer
@@ -44,7 +44,7 @@ class Favr extends Component {
         this.setState({timeRemaining: -1});
         // TODO: alertExpiredFavr()
       } else {
-        remainingTimeInMil = expirationTime.getTime() - Date.now();
+        remainingTimeInMil = expirationTime - Date.now();
         this.setState({timeRemaining: Math.floor(remainingTimeInMil/60000)});
       }
     }, 1000);
@@ -78,6 +78,7 @@ class Favr extends Component {
       title,
       details,
       pickupLocation,
+      expirationTime,
       dropoffLocation,
       REFrequestedBy,
       REFfulFilledBy,
@@ -120,7 +121,7 @@ class Favr extends Component {
                 </div>
               </div>
             </div>
-            <button type="submit" className="favr-card-action-button" onClick={() => this.showDetails(favrId)}>
+            <button type="submit" className="favr-card-action-button" onClick={() => addFavr(title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount)}>
               {/* addFavr(title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount */}
               <div>{detailsAreShowing?`Hide details`:`See details`}</div>
             </button>
@@ -144,7 +145,7 @@ Favr.propTypes = {
     details: PropTypes.string.isRequired,
     pickupLocation: PropTypes.string.isRequired,
     dropoffLocation: PropTypes.string.isRequired,
-    expirationTime: PropTypes.instanceOf(Date).isRequired,
+    expirationTime: PropTypes.number.isRequired,
     REFrequestedBy: PropTypes.shape({
       email: PropTypes.string.isRequired,
       profilePicCode: PropTypes.string.isRequired,
