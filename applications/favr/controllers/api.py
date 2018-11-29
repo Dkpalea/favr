@@ -45,30 +45,29 @@ def getFavr():
     else:
         rows = db(db.favr.isComplete == False).select(db.favr.ALL, orderby=db.favr.requestTime)
 
-    # print(type(rows))
-
     if rows is not None:
         for row in rows:
-            # print(type(row))
+            print(row)
             REFrequestedByRow = db(db.auth_user.email == row.REFrequestedBy).select(
-                db.auth_user.first_name, db.auth_user.first_name).first()
+                db.auth_user.first_name, db.auth_user.last_name).first()
             # error here
+            print(REFrequestedByRow)
             REFrequestedBy = dict(
                 email = row.REFrequestedBy,
                 firstName = REFrequestedByRow.first_name,
                 lastName = REFrequestedByRow.last_name,
             )
-            print('here')
             REFfulfilledBy = dict(
                 email=row.REFfulfilledBy,
                 firstName=None,
                 lastName=None,
             )
             REFfulfilledByRow = db(db.auth_user.email == row.REFrequestedBy).select(
-                db.auth_user.first_name, db.auth_user.first_name).first()
-            if REFfulfilledByRow != None:
+                db.auth_user.first_name, db.auth_user.last_name).first()
+            if REFfulfilledByRow is not None:
                 REFfulfilledBy['firstName'] = REFfulfilledByRow.first_name
                 REFfulfilledBy['lastName'] = REFfulfilledByRow.last_name
+
             results.append(
                 dict(
                     favrId=row.id,
@@ -78,7 +77,7 @@ def getFavr():
                     pickupLocation=row.pickupLocation,
                     dropoffLocation=row.dropoffLocation,
                     expirationTime=row.expirationTime,
-                    startTime=row.startTime,
+                    startTime=row.fulfillerStartTime,
                     REFrequestedBy=REFrequestedBy,
                     REFfulfilledBy=REFfulfilledBy,
                     requestTime=row.requestTime,
