@@ -12,6 +12,7 @@ class MainPage extends Component {
   }
 
   render() {
+    const now = new Date(Date.now() + 100000);
     return (
       <div className="main-page-container">
         <Navbar />
@@ -22,7 +23,7 @@ class MainPage extends Component {
             details: `myDetails`,
             pickupLocation: `fromHere`,
             dropoffLocation: `toThere`,
-            expirationTime: new Date(Date.now() + 800000),
+            expirationTime: now,
             REFrequestedBy: {
               email: `12345@12345.com`,
               profilePicCode: ``,
@@ -43,7 +44,7 @@ class MainPage extends Component {
             details: `myDetails`,
             pickupLocation: `fromHere`,
             dropoffLocation: `toThere`,
-            expirationTime: new Date(Date.now() + 55050),
+            expirationTime: now,
             REFrequestedBy: {
               email: `12345@12345.com`,
               profilePicCode: ``,

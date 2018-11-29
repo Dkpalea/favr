@@ -1,5 +1,5 @@
-timestamp: 2018-11-05T10:46:31.258586
-CREATE TABLE "web2py_session_hw3"(
+timestamp: 2018-11-28T17:23:32.955861
+CREATE TABLE "web2py_session_favr"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "locked" CHAR(1),
     "client_ip" CHAR(64),
@@ -9,7 +9,7 @@ CREATE TABLE "web2py_session_hw3"(
     "session_data" BLOB
 );
 success!
-timestamp: 2018-11-05T10:46:31.263866
+timestamp: 2018-11-28T17:23:32.961296
 CREATE TABLE "auth_user"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "first_name" CHAR(128),
@@ -21,21 +21,21 @@ CREATE TABLE "auth_user"(
     "registration_id" CHAR(512)
 );
 success!
-timestamp: 2018-11-05T10:46:31.268097
+timestamp: 2018-11-28T17:23:32.965771
 CREATE TABLE "auth_group"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "role" CHAR(512),
     "description" TEXT
 );
 success!
-timestamp: 2018-11-05T10:46:31.270750
+timestamp: 2018-11-28T17:23:32.968847
 CREATE TABLE "auth_membership"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
     "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  
 );
 success!
-timestamp: 2018-11-05T10:46:31.273430
+timestamp: 2018-11-28T17:23:32.971819
 CREATE TABLE "auth_permission"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  ,
@@ -44,7 +44,7 @@ CREATE TABLE "auth_permission"(
     "record_id" INTEGER
 );
 success!
-timestamp: 2018-11-05T10:46:31.277009
+timestamp: 2018-11-28T17:23:32.975421
 CREATE TABLE "auth_event"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "time_stamp" TIMESTAMP,
@@ -54,7 +54,7 @@ CREATE TABLE "auth_event"(
     "description" TEXT
 );
 success!
-timestamp: 2018-11-05T10:46:31.281017
+timestamp: 2018-11-28T17:23:32.979675
 CREATE TABLE "auth_cas"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
@@ -64,7 +64,7 @@ CREATE TABLE "auth_cas"(
     "renew" CHAR(1)
 );
 success!
-timestamp: 2018-11-05T10:46:31.286067
+timestamp: 2018-11-28T17:23:32.985659
 CREATE TABLE "post"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "post_author" CHAR(512),
@@ -73,26 +73,7 @@ CREATE TABLE "post"(
     "post_time" TIMESTAMP
 );
 success!
-timestamp: 2018-11-05T10:46:31.290358
-CREATE TABLE "thumb"(
-    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "user_email" CHAR(512),
-    "post_id" INTEGER REFERENCES "post" ("id") ON DELETE CASCADE  ,
-    "thumb_state" CHAR(512)
-);
-success!
-timestamp: 2018-11-20T14:42:25.388445
-CREATE TABLE "web2py_session_favr"(
-    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "locked" CHAR(1),
-    "client_ip" CHAR(64),
-    "created_datetime" TIMESTAMP,
-    "modified_datetime" TIMESTAMP,
-    "unique_key" CHAR(64),
-    "session_data" BLOB
-);
-success!
-timestamp: 2018-11-27T13:34:31.281986
+timestamp: 2018-11-28T17:23:32.989871
 CREATE TABLE "favr"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "title" CHAR(512),
@@ -100,123 +81,21 @@ CREATE TABLE "favr"(
     "pickupLocation" CHAR(512),
     "dropoffLocation" CHAR(512),
     "expirationTime" TIMESTAMP,
-    "startTime" CHAR(512),
+    "fulfillerStartTime" TIMESTAMP,
     "REFrequestedBy" CHAR(512),
     "REFfulfilledBy" CHAR(512),
-    "requestTime" CHAR(512),
+    "requestTime" TIMESTAMP,
     "requestAmount" CHAR(512),
     "isComplete" CHAR(512)
 );
 success!
-timestamp: 2018-11-27T14:05:11.421486
-ALTER TABLE "favr" ADD "fulfillerStartTime" CHAR(512);
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
-success!
+timestamp: 2018-11-28T17:23:32.995134
+CREATE TABLE "thumb"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user_email" CHAR(512),
+    "post_id" INTEGER REFERENCES "post" ("id") ON DELETE CASCADE  ,
+    "thumb_state" CHAR(512)
+);
 success!
 success!
 success!

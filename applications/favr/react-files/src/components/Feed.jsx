@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import Favr from './Favr';
+import { getFavr } from '../stateStoreAndFunctions';
 
 class Feed extends Component {
 
@@ -9,6 +10,8 @@ class Feed extends Component {
   }
 
   render() {
+
+    getFavr(`feedFavr`);
 
     const {feedFavrs} = this.props;
 

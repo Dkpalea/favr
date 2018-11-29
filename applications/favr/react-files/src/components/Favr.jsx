@@ -28,8 +28,26 @@ class Favr extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {detailsAreShowing: false, minutesRemaining: null};
+    this.state = {detailsAreShowing: false, timeRemaining: null};
     this.showDetails = this.showDetails.bind(this);
+  }
+
+  componentWillMount() {
+    let { timeRemaining } = this.state;
+    const { favr: {expirationTime} } = this.props;
+    let remainingTimeInMil = expirationTime.getTime() - Date.now();
+    this.setState({timeRemaining: Math.floor(remainingTimeInMil/60000)});
+    const intervalId = setInterval(() => {
+      // favr expired, clear timer
+      if (this.state.timeRemaining!==null && this.state.timeRemaining<0) {
+        clearInterval(intervalId);
+        this.setState({timeRemaining: -1});
+        // TODO: alertExpiredFavr()
+      } else {
+        remainingTimeInMil = expirationTime.getTime() - Date.now();
+        this.setState({timeRemaining: Math.floor(remainingTimeInMil/60000)});
+      }
+    }, 1000);
   }
 
   showDetails = favrId => {
@@ -38,7 +56,7 @@ class Favr extends Component {
     console.log(favrId);
     // let growDiv = document.getElementById(`swag`);
     if (growDiv.clientHeight) {
-      growDiv.style.height = 0;
+      growDiv.style.height = `0`;
     } else {
       let container = document.querySelector(`.measuring-container`);
       growDiv.style.height = `${container.clientHeight}px`;
@@ -51,7 +69,7 @@ class Favr extends Component {
 
   render() {
 
-    const { detailsAreShowing } = this.state;
+    const { detailsAreShowing, timeRemaining } = this.state;
 
     const { favr } = this.props;
 
@@ -61,7 +79,6 @@ class Favr extends Component {
       details,
       pickupLocation,
       dropoffLocation,
-      expirationTime,
       REFrequestedBy,
       REFfulFilledBy,
       requestAmount,
@@ -80,7 +97,7 @@ class Favr extends Component {
             <div className="favr-card-username">{REFrequestedBy.email===loggedInUserEmail?(`You!`):(`${REFrequestedBy.firstName} ${REFrequestedBy.lastName}`)}</div>
             <div className="favr-card-upper-info-text-under">
               <span className="favr-card-info-font">
-                <span className="favr-card-upper-info-expiration-low">expires in 8m</span>
+                <span className="favr-card-upper-info-expiration-low">{(timeRemaining!==null && timeRemaining>0)?`expires in ${timeRemaining}m`:`expires in <1m`}</span>
                 {`  |  pickup from ${pickupLocation}  |  delivery to ${dropoffLocation}`}
               </span>
             </div>

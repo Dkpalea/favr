@@ -35,10 +35,10 @@ db.define_table('favr',
                 Field('pickupLocation'),
                 Field('dropoffLocation'),
                 Field('expirationTime', 'datetime'),
-                Field('fulfillerStartTime'),
+                Field('fulfillerStartTime', 'datetime'),
                 Field('REFrequestedBy', default=get_user_email()),
                 Field('REFfulfilledBy'),
-                Field('requestTime', default=get_current_time()),
+                Field('requestTime', 'datetime', default=get_current_time()),
                 Field('requestAmount'),
                 Field('isComplete', default=False)
                 )

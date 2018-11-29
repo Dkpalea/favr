@@ -20,6 +20,66 @@ def addFavr():
     )
     return response.json(dict(postId=favrId))
 
+def getFavr():
+    results = []
+    if auth.user is not None:
+        if request.vars.setCode == 'feedFavr':
+            print('qqqqqqqq')
+            rows = db(db.favr.REFrequestedBy == auth.user.email and
+                      db.favr.isComplete == False
+                      ).select(
+                        db.favr.ALL, orderby=db.favr.requestTime).first()
+            print('here')
+        elif request.vars.setCode == 'myAccepted':
+            rows = db(db.favr.REFrequestedBy != auth.user.email and
+                      db.favr.isComplete == False and
+                      db.favr.REFfulfilledBy == auth.user.email).select(
+                        db.favr.ALL, orderby=db.favr.requestTime)
+        elif request.vars.setCode == 'myRequested':
+            rows = db(
+                db.favr.REFrequestedBy == auth.user.email and
+                db.favr.isComplete == False).select(
+                  db.favr.ALL, orderby=db.favr.requestTime)
+    else:
+        rows = db(db.favr.isComplete == False).select(db.favr.ALL, orderby=db.favr.requestTime)
+
+    if rows is not None:
+        for row in rows:
+            REFrequestedByRow = db(db.auth_user.email == row.REFrequestedBy).select(
+                db.auth_user.first_name, db.auth_user.first_name).first()
+            REFrequestedBy = dict(
+                email = row.REFrequestedBy,
+                firstName = REFrequestedByRow.first_name,
+                lastName = REFrequestedByRow.last_name,
+            )
+            REFfulfilledBy = dict(
+                email=row.REFfulfilledBy,
+                firstName=None,
+                lastName=None,
+            )
+            REFfulfilledByRow = db(db.auth_user.email == row.REFrequestedBy).select(
+                db.auth_user.first_name, db.auth_user.first_name).first()
+            if REFfulfilledByRow != None:
+                REFfulfilledBy['firstName'] = REFfulfilledByRow.first_name
+                REFfulfilledBy['lastName'] = REFfulfilledByRow.last_name
+            results.append(
+                dict(
+                    favrId=row.id,
+                    isShowingDetails=False,
+                    title=row.title,
+                    details=row.details,
+                    pickupLocation=row.pickupLocation,
+                    dropoffLocation=row.dropoffLocation,
+                    expirationTime=row.expirationTime,
+                    startTime=row.startTime,
+                    REFrequestedBy=REFrequestedBy,
+                    REFfulfilledBy=REFfulfilledBy,
+                    requestTime=row.requestTime,
+                    requestAmount=row.requestAmount,
+                    isComplete=row.isComplete,
+                )
+            )
+    return response.json(dict(favrSet=results))
 
 def get_post_list():
     results = []
