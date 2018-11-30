@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Feed from './Feed';
 import Navbar from "./Navbar";
+import LoginPage from "./LoginPage";
 
 class MainPage extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class MainPage extends Component {
         <Navbar />
         <div className="main-feed-container">
           <Feed />
+        <LoginPage></LoginPage>
         </div>
       </div>
     );

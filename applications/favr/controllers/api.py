@@ -41,5 +41,9 @@ def get_post_list():
             ))
     # For homogeneity, we always return a dictionary.
     return response.json(dict(post_list=results))
+
+@auth.requires_signature()
+def add_favr():
+
     
 

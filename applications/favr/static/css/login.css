@@ -1,0 +1,70 @@
+div.login_box {
+    display: flex;
+    justify-content: center;
+    padding: 70px;
+}
+
+body.login_page {
+    background: linear-gradient(180deg, #083D77 67.96%, rgba(8, 61, 119, 0.95) 100%);
+    margin:0 auto;
+}
+
+div.Login_Display {
+    font-size: 2em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-default {
+    background-color: #4CAF50;
+    text-align: center;
+    border: none;
+    color: white;
+    display: inline-block;
+}
+
+
+.btn-primary {
+    background-color: #4CAF50;
+    text-align: center;
+    border: none;
+    color: white;
+    display: inline-block;
+}
+
+.control-label.col-sm-3 {
+    color: white;
+    font-family: Roboto;
+    font-size: 1em;
+}
+
+.checkbox {
+    color: white;
+    font-size: 1em;
+    font-family: Roboto;
+}
+
+div.favr_text {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 72px;
+    text-align: center;
+    color:white;
+    letter-spacing: 0.04em;
+    padding-top: 70px;
+}
+
+div.favr_desc {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color:white;
+}

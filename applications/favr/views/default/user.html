@@ -1,10 +1,22 @@
-{{extend 'layout.html'}}
+<html>
+    <head>
+        <link href="{{=URL('static','css/login.css')}}" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    </head>
+<body class="login_page">
+<div class="Login_Display">
+</div>
 
-<h2>
-{{=T('Sign Up') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
-</h2>
+<div class="favr_text">
+    f&#x0101;vr
+</div>
+<div class="favr_desc">
+    make money.
+</br>
+    get things done.
+</div>
 
-<div class="container">
+<div class="login_box">
     <div class="row">
         <div id="web2py_user_form" class="col-lg-6">
         {{
@@ -33,3 +45,5 @@
 {{pass}}
 </script>
 {{end page_js}}
+</body>
+</html>
