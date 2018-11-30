@@ -1,7 +1,9 @@
-const path = require('path');
+var nodeCmd = require(`node-cmd`);
+
+const path = require(`path`);
 
 // const publicPath = path.resolve('../static/js');
-const publicPath = path.join(__dirname, 'public');
+const publicPath = path.join(__dirname, `public`);
 
 
 // const HtmlWebPackPlugin = require('html-webpack-plugin');
@@ -9,34 +11,34 @@ const publicPath = path.join(__dirname, 'public');
 //'webpack-dev-server/client?/', 'webpack/hot/dev-server',
 
 module.exports = {
-  entry: ['./src/app.jsx' ],
+  entry: [`./src/app.jsx` ],
   output: {
     path: publicPath,
-    filename: 'bundle.js',
+    filename: `bundle.js`,
   },
   module: {
     rules: [{
-      loader: 'babel-loader',
+      loader: `babel-loader`,
       test: /\.(jsx|js)$/,
       exclude: /node_modules/,
     },
     {
       test: /\.s?css$/,
-      use: ['style-loader',
-        'css-loader',
-        'sass-loader',
+      use: [`style-loader`,
+        `css-loader`,
+        `sass-loader`,
       ],
     },
     {
       test: /\.(png|svg|jpg|gif)$/,
       use: {
-        loader: 'file-loader',
+        loader: `file-loader`,
       },
     },
     {
       test: /\.html$/,
       use: {
-        loader: 'html-loader',
+        loader: `html-loader`,
       },
     },
     ],
@@ -48,15 +50,21 @@ module.exports = {
   //   }),
   // ],
   resolve: {
-    extensions: ['.js', '.jsx', '.svg', '.json'],
+    extensions: [`.js`, `.jsx`, `.svg`, `.json`],
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: `cheap-module-eval-source-map`,
   devServer: {
     contentBase: publicPath,
     historyApiFallback: true,
     watchContentBase: true,
-    host: '0.0.0.0',
+    host: `0.0.0.0`,
     port: 8080,
+    after: () => {
+      nodeCmd.run(`touch yoyo.txt`);
+    },
+    setup: () => {
+      nodeCmd.run(`touch yang.txt`);
+    },
   },
-  mode: 'development',
+  mode: `development`,
 };

@@ -1,4 +1,6 @@
+# TODO: Remove cross origin privileges for production
 import datetime
+epoch = datetime.datetime.utcfromtimestamp(0)
 
 @auth.requires_signature()
 def add_post():
@@ -12,6 +14,9 @@ def add_post():
 
 # @auth.requires_signature()
 def addFavr():
+    # Allow cross origin requests (to test from react)
+    if request.env.http_origin:
+        response.headers['Access-Control-Allow-Origin'] = request.env.http_origin
     favrId = db.favr.insert(
         title=request.vars.title,
         details=request.vars.details,
@@ -23,35 +28,38 @@ def addFavr():
     return response.json(dict(favrId=favrId))
 
 def getFavr():
+    # Allow cross origin requests (to test from react)
+    if request.env.http_origin:
+        response.headers['Access-Control-Allow-Origin'] = request.env.http_origin
     results = []
     if auth.user is not None:
         if request.vars.setCode == 'feedFavr':
-            print('qqqqqqqq')
             rows = db(db.favr.REFrequestedBy == auth.user.email and
                       db.favr.isComplete == False
                       ).select(
                         db.favr.ALL, orderby=db.favr.requestTime)
-            print('here')
         elif request.vars.setCode == 'myAccepted':
             rows = db(db.favr.REFrequestedBy != auth.user.email and
                       db.favr.isComplete == False and
                       db.favr.REFfulfilledBy == auth.user.email).select(
                         db.favr.ALL, orderby=db.favr.requestTime)
         elif request.vars.setCode == 'myRequested':
-            rows = db(
-                db.favr.REFrequestedBy == auth.user.email and
-                db.favr.isComplete == False).select(
+            # Weird query... didn't work properly with just first and second condition so
+            #   I added a third (which should return an empty set, but instead returns
+            #   the correct set, so I just left it... Took hours to stubmle across!!)
+            rows = db(db.favr.REFrequestedBy == auth.user.email and
+                db.favr.isComplete == 'F' and
+                db.favr.REFrequestedBy != auth.user.email).select(
                   db.favr.ALL, orderby=db.favr.requestTime)
+        else:
+            rows = db(db.favr.isComplete == 'F').select(db.favr.ALL, orderby=db.favr.requestTime)
     else:
-        rows = db(db.favr.isComplete == False).select(db.favr.ALL, orderby=db.favr.requestTime)
+        rows = db(db.favr.isComplete == 'F').select(db.favr.ALL, orderby=db.favr.requestTime)
 
-    if rows is not None:
+    if rows:
         for row in rows:
-            print(row)
             REFrequestedByRow = db(db.auth_user.email == row.REFrequestedBy).select(
                 db.auth_user.first_name, db.auth_user.last_name).first()
-            # error here
-            print(REFrequestedByRow)
             REFrequestedBy = dict(
                 email = row.REFrequestedBy,
                 firstName = REFrequestedByRow.first_name,
@@ -62,7 +70,7 @@ def getFavr():
                 firstName=None,
                 lastName=None,
             )
-            REFfulfilledByRow = db(db.auth_user.email == row.REFrequestedBy).select(
+            REFfulfilledByRow = db(db.auth_user.email == row.REFfulfilledBy).select(
                 db.auth_user.first_name, db.auth_user.last_name).first()
             if REFfulfilledByRow is not None:
                 REFfulfilledBy['firstName'] = REFfulfilledByRow.first_name
@@ -76,16 +84,21 @@ def getFavr():
                     details=row.details,
                     pickupLocation=row.pickupLocation,
                     dropoffLocation=row.dropoffLocation,
-                    expirationTime=row.expirationTime,
-                    startTime=row.fulfillerStartTime,
+                    expirationTime=datetime_to_milliseconds(row.expirationTime),
+                    startTime=datetime_to_milliseconds(row.fulfillerStartTime),
                     REFrequestedBy=REFrequestedBy,
                     REFfulfilledBy=REFfulfilledBy,
-                    requestTime=row.requestTime,
+                    requestTime=datetime_to_milliseconds(row.requestTime),
                     requestAmount=row.requestAmount,
                     isComplete=row.isComplete,
                 )
             )
     return response.json(dict(favrSet=results))
+
+def datetime_to_milliseconds(dt):
+    if dt is None:
+        return None
+    return (dt - epoch).total_seconds() * 1000.0
 
 def get_post_list():
     results = []

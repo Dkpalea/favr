@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import * as $ from 'jquery';
 import Favr from './Favr';
-import { getFavr } from '../stateStoreAndFunctions';
 
 class Feed extends Component {
 
   constructor(props) {
     super(props);
+    this.addButtonCLicked = this.addButtonCLicked.bind(this);
   }
 
+  addButtonCLicked = () => {
+    $(`html, body`).animate({ scrollTop: 0 }, `fast`);
+  };
+
   render() {
-
-    getFavr(`feedFavr`);
-
-    const {feedFavrs} = this.props;
-
-    const favrComponents = feedFavrs.map(favr => {
+    const favrComponents = this.props.feedFavrs.map(favr => {
       return (
         <div key={`favr-${favr.favrId}`} className="favrs-container">
           <div className="favr-in-feed">
@@ -26,8 +26,11 @@ class Feed extends Component {
       );
     });
     return (
-      <div className="main-feed">
-        {favrComponents}
+      <div className="main-feed-container">
+        <div onClick={() => this.addButtonCLicked()} className="add-favr-button" />
+        <div className="favr-feed">
+          {favrComponents}
+        </div>
       </div>
     );
   }
@@ -35,7 +38,7 @@ class Feed extends Component {
 
 Feed.propTypes = {
   feedFavrs: PropTypes.arrayOf(PropTypes.shape({
-    favrId: PropTypes.string.isRequired,
+    favrId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     details: PropTypes.string.isRequired,
     pickupLocation: PropTypes.string.isRequired,
@@ -43,16 +46,16 @@ Feed.propTypes = {
     expirationTime: PropTypes.number.isRequired,
     REFrequestedBy: PropTypes.shape({
       email: PropTypes.string.isRequired,
-      profilePicCode: PropTypes.string.isRequired,
+      // profilePicCode: PropTypes.string.isRequired,
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
     }).isRequired,
-    REFfulFilledBy: PropTypes.shape({
+    REFfulfilledBy: PropTypes.shape({
       email: PropTypes.string.isRequired,
-      profilePicCode: PropTypes.string.isRequired,
+      // profilePicCode: PropTypes.string.isRequired,
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
-    }).isRequired,
+    }),
     requestAmount: PropTypes.number.isRequired,
   })),
 };

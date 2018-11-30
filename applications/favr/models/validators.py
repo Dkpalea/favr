@@ -1,0 +1,1 @@
+db.favr.requestAmount.requires = IS_INT_IN_RANGE(-1e100, 1e100)

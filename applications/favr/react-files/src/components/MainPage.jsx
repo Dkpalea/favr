@@ -1,66 +1,30 @@
 import React, {Component} from 'react';
 import Feed from './Feed';
 import Navbar from "./Navbar";
+import { getFavr } from '../stateStoreAndFunctions';
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
+    this.state = { feedFavrsState: storeState.feedFavrs };
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    getFavr(`feedFavrs`, this);
+  }
 
+  componentWillReceiveProps(nextProps, nextContext) {
+    console.log(storeState.feedFavrs);
   }
 
   render() {
-    const now = new Date(Date.now() + 100000);
+    console.log(this.state.feedFavrsState);
+    // const now = new Date(Date.now() + 100000);
     return (
       <div className="main-page-container">
         <Navbar />
         <div className="main-feed-container">
-          <Feed feedFavrs={[{
-            favrId: `123`,
-            title: `myTitle`,
-            details: `myDetails`,
-            pickupLocation: `fromHere`,
-            dropoffLocation: `toThere`,
-            expirationTime: now.getTime(),
-            REFrequestedBy: {
-              email: `12345@12345.com`,
-              profilePicCode: ``,
-              firstName: `firstName`,
-              lastName: `lastName`,
-            },
-            REFfulFilledBy: {
-              email: `1234@1234.com`,
-              profilePicCode: ``,
-              firstName: `Dustin`,
-              lastName: `Palea`,
-            },
-            requestAmount: 12,
-          },
-          {
-            favrId: `1234`,
-            title: `myTitle`,
-            details: `myDetails`,
-            pickupLocation: `fromHere`,
-            dropoffLocation: `toThere`,
-            expirationTime: now.getTime(),
-            REFrequestedBy: {
-              email: `12345@12345.com`,
-              profilePicCode: ``,
-              firstName: `firstName`,
-              lastName: `lastName`,
-            },
-            REFfulFilledBy: {
-              email: `1234@1234.com`,
-              profilePicCode: ``,
-              firstName: `Dustin`,
-              lastName: `Palea`,
-            },
-            requestAmount: 12,
-          },
-          ]}
-          />
+          <Feed feedFavrs={this.state.feedFavrsState} />
         </div>
       </div>
     );

@@ -69,6 +69,8 @@ class Favr extends Component {
 
   render() {
 
+    console.log(this.props.favr);
+
     const { detailsAreShowing, timeRemaining } = this.state;
 
     const { favr } = this.props;
@@ -81,7 +83,7 @@ class Favr extends Component {
       expirationTime,
       dropoffLocation,
       REFrequestedBy,
-      REFfulFilledBy,
+      REFfulfilledBy,
       requestAmount,
     } = favr;
 
@@ -116,12 +118,12 @@ class Favr extends Component {
               <div className="favr-card-lower-info-pic-text-container">
                 <div className="favr-card-profile-pic" />
                 <div className="favr-card-lower-info-text">
-                  <div className="favr-card-username">{REFfulFilledBy.email===loggedInUserEmail?(`You!`):(`${REFfulFilledBy.firstName} ${REFfulFilledBy.lastName}`)}</div>
+                  <div className="favr-card-username">{REFfulfilledBy.email===loggedInUserEmail?(`You!`):(`${REFfulfilledBy.firstName} ${REFfulfilledBy.lastName}`)}</div>
                   <div className="favr-card-info-font favr-card-lower-info-text-under">started 10min ago</div>
                 </div>
               </div>
             </div>
-            <button type="submit" className="favr-card-action-button" onClick={() => addFavr(title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount)}>
+            <button type="submit" className="favr-card-action-button" onClick={() => this.showDetails(favrId)}>
               {/* addFavr(title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount */}
               <div>{detailsAreShowing?`Hide details`:`See details`}</div>
             </button>
@@ -140,7 +142,7 @@ class Favr extends Component {
 
 Favr.propTypes = {
   favr: PropTypes.shape({
-    favrId: PropTypes.string.isRequired,
+    favrId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     details: PropTypes.string.isRequired,
     pickupLocation: PropTypes.string.isRequired,
@@ -148,24 +150,30 @@ Favr.propTypes = {
     expirationTime: PropTypes.number.isRequired,
     REFrequestedBy: PropTypes.shape({
       email: PropTypes.string.isRequired,
-      profilePicCode: PropTypes.string.isRequired,
+      // profilePicCode: PropTypes.string.isRequired,
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
     }).isRequired,
-    REFfulFilledBy: PropTypes.shape({
-      email: PropTypes.string.isRequired,
-      profilePicCode: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-    }).isRequired,
+    REFfulfilledBy: PropTypes.shape({
+      email: PropTypes.string,
+      // profilePicCode: PropTypes.string.isRequired,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+    }),
     requestAmount: PropTypes.number.isRequired,
   }).isRequired,
 };
 
-// NodeList.defaultProps = {
-//   uid: null,
-//   nodes: [],
-//   selectedNode: null,
+// Favr.defaultProps = {
+//   favr: {
+//     REFfulfilledBy:
+//       {
+//         email: null,
+//         // profilePicCode: null,
+//         firstName: null,
+//         lastName: null,
+//       },
+//   },
 // };
 
 export default Favr;

@@ -48,11 +48,21 @@ const addFavr = (title, details, pickupLocation, dropoffLocation, expirationTime
 
 // Get favr
 // setCodes: feedFavr, myAccepted, myRequested
-const getFavr = setCode => {
+const getFavr = (setCode, context) => {
   $.post(getFavrUrl, {
     setCode,
   }, data => {
-    console.log(data.favrSet);
+    console.log(setCode);
+    console.log(data);
+    if (setCode === `feedFavrs`) {
+      context.setState({feedFavrsState: data.favrSet});
+      storeState.feedFavrs = data.favrSet;
+      console.log(`imhere`);
+    } else if (setCode === `myRequested`) {
+      storeState.myRequested = data.favrSet;
+    } else if (setCode === `myAccepted`) {
+      storeState.myAccepted = data.favrSet;
+    }
   });
 };
 
