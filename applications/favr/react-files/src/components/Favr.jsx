@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { cancelAcceptedFavr } from '../stateStoreAndFunctions';
+import { cancelAcceptedFavr, acceptFavr } from '../stateStoreAndFunctions';
 
 const favr = {
   favrId: `123`,
@@ -134,8 +134,8 @@ class Favr extends Component {
           <div className="measuring-container">
             <div className="favr-details green-background-button">
               {details}
-              <div className="accept-cancel-button-container">
-                <button type="submit" className={`accept-cancel-button ${REFfulfilledBy.email===loggedInUserEmail?`red-background-button`:`green-background-button`}`}>
+              <div className={`accept-cancel-button-container ${REFfulfilledBy.email===loggedInUserEmail?``:`display-none`}`}>
+                <button type="submit" className={`accept-cancel-button ${REFfulfilledBy.email===loggedInUserEmail?`red-background-button`:`green-background-button`}`} onClick={() => acceptFavr(favrId)}>
                   <div>{`${REFfulfilledBy.email===loggedInUserEmail?`Cancel`:`Accept`}`}</div>
                 </button>
               </div>

@@ -73,7 +73,28 @@ const removeFavr = () => {};
 const updateFavr = () => {};
 
 // Accept favr
-const acceptFavr = () => {};
+const acceptFavr = favrId => {
+  $.post(acceptFavrUrl, {
+    favrId,
+  }, data => {
+    console.log(data);
+    if (data.message === `success`) {
+      storeState.feedFavrs.map(favrObj => {
+        if (favrObj.favrId === favrId) {
+          favrObj.REFfulfilledBy = {
+            // TODO: add profile pic char
+            email: loggedInUserEmail,
+            firstName: data.firstName,
+            lastName: data.lastName,
+          };
+        }
+      });
+      storeState.feedComponentHandle.setState( { feedFavrsState: storeState.feedFavrs } );
+    } else {
+      alert(`Sorry. We could not complete your request. :(`);
+    }
+  });
+};
 
 // Cancel Accepted favr (both as a requester and a fulfiller)
 const cancelAcceptedFavr = favrId => {

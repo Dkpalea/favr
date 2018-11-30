@@ -40,6 +40,20 @@ def cancelAcceptedFavr():
             return response.json(dict(message='success'))
     return response.json(dict(message='error'))
 
+def acceptFavr():
+    # Allow cross origin requests (to test from react)
+    if request.env.http_origin:
+        response.headers['Access-Control-Allow-Origin'] = request.env.http_origin
+    if auth.user is not None:
+        row = db(db.favr.id == request.vars.favrId).select().first()
+        if row is not None and row.REFfulfilledBy is None:
+            row.update_record(
+                REFfulfilledBy=auth.user.email
+            )
+            userRow = db(db.auth_user.email == auth.user.email).select().first()
+            return response.json(dict(message='success', firstName=userRow.first_name, lastName=userRow.last_name))
+    return response.json(dict(message='error'))
+
 def getFavr():
     # Allow cross origin requests (to test from react)
     if request.env.http_origin:
