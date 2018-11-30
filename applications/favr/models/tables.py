@@ -29,20 +29,35 @@ db.define_table('post',
                 Field('post_time', 'datetime', default=get_current_time()),
                 )
 
-"""db.define_table('favr',
+db.define_table('favr',
                 Field('title'),
                 Field('details'),
                 Field('pickupLocation'),
                 Field('dropoffLocation'),
                 Field('expirationTime', 'datetime'),
-                Field('startTime'),
+                Field('fulfillerStartTime', 'datetime'),
                 Field('REFrequestedBy', default=get_user_email()),
-                Field('REFfulfilledBy', 'reference user'),
-                Field('requestTime', default=get_current_time()),
-                Field('requestAmount'),
-                Field('isComplete', default=False)
+                Field('REFfulfilledBy'),
+                Field('requestTime', 'datetime', default=get_current_time()),
+                Field('requestAmount', 'integer', default=0),
+                Field('isComplete', 'boolean', default=False)
                 )
-                """
+
+# db.favr.requestAmount.requires = IS_INT_IN_RANGE(-1e100, 1e100)
+
+db.define_table('test',
+                Field('title'),
+                Field('details'),
+                Field('pickupLocation'),
+                Field('dropoffLocation'),
+                Field('expirationTime', 'datetime'),
+                Field('fulfillerStartTime', 'datetime'),
+                Field('REFrequestedBy', default=get_user_email()),
+                Field('REFfulfilledBy'),
+                Field('requestTime', 'datetime', default=get_current_time()),
+                Field('requestAmount', 'integer', default=0),
+                Field('isComplete', 'boolean', default=False)
+                )
 
 # Thumbs
 db.define_table('thumb',

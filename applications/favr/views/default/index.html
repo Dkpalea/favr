@@ -11,16 +11,18 @@
         feedFavrs: [], // not complete && not posted/requested by logged in user
         myRequested: [], // all favrs requested by logged in user
         myAccepted: [], // all favrs accepted by logged in user
+        feedComponentHandle: null
       };
       const userIsLoggedIn = {{='false' if auth.user is None else 'true'}};
       const loggedInUserEmail = `{{='' if auth.user is None else str (auth.user.email)}}`;
-      let myMessage = `hello`;
-      const addFavrUrl = `{{=URL('api', 'addFavr', user_signature=True)}}`;
+      const addFavrUrl = `{{=URL('api', 'addFavr')}}`;
       const getFavrUrl = `{{=URL('api', 'getFavr')}}`;
-      const removeFavrUrl = `{{=URL('api', 'removeFavr')}}`;
-      const updateFavr = `{{=URL('api', 'updateFavr')}}`;
-      const acceptFavr = `{{=URL('api', 'acceptFavr')}}`;
-      const cancelAcceptedFavr = `{{=URL('api', 'cancelAcceptedFavr')}}`;
+      const removeFavrUrl = `{{=URL('api', 'removeFavr', user_signature=True)}}`;
+      const updateFavrUrl = `{{=URL('api', 'updateFavr', user_signature=True)}}`;
+      const acceptFavrUrl = `{{=URL('api', 'acceptFavr', user_signature=True)}}`;
+      const cancelAcceptedFavrUrl = `{{=URL('api', 'cancelAcceptedFavr', user_signature=True)}}`;
+      const alertExpiredFavrUrl = `{{=URL('api', 'alertExpiredFavr', user_signature=True)}}`;
+      const addFavrButtonImageSource = `{{=URL('static', 'images/addFavrButton.svg')}}`;
     </script>
     <div id="app"></div>
     <script type="text/javascript" src="{{=URL('static', 'js/default_index.js')}}"></script>

@@ -28,7 +28,7 @@
   background: $white;
   box-shadow: 4px 12px 24px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
-  max-width: 700px;
+  width: 650px;
   padding: 1rem 1.5rem 1.5rem 1.5rem;
 }
 
@@ -71,11 +71,22 @@
   margin: 8px 0 8px 0;
 }
 
+.details-container {
+  -moz-transition: height .35s ease-in-out;
+  -ms-transition: height .35s;
+  -o-transition: height .35s ease-in-out;
+  -webkit-transition: height .35s ease-in-out;
+  transition: height .35s ease-in-out;
+  height: 0;
+  overflow: hidden;
+}
+
 .flex-container {
   display: flex;
 }
 
 .favr-card-upper-info {
+  width: 100%;
   display: flex;
   align-items: center;
 
@@ -129,12 +140,28 @@
     }
   }
 
-  button:hover {
+  .green-background-button:hover {
     background-color: darken($green, 5%);
+  }
+
+  .blue-background-button:hover {
+    background-color: darken($blue, 5%);
+  }
+
+  .visibility-hidden {
+    visibility: hidden;
   }
 
   button:active {
     transform: scale(0.98);
+  }
+
+  .green-background-button {
+    background-color: $green;
+  }
+
+  .blue-background-button {
+    background-color: $blue;
   }
 
   .favr-card-action-button {
@@ -143,7 +170,6 @@
     height: 40px;
     border-radius: 50px;
     margin-right: 20px;
-    background-color: $green;
     transition: background-color .25s ease;
 
     div {
@@ -160,4 +186,56 @@
     }
 
   }
+}
+
+.accept-cancel-button-container {
+  display: flex;
+  width: 100%;
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  .green-background-button {
+    background-color: $green;
+  }
+
+  .green-background-button:hover {
+    background-color: darken($green, 5%);
+  }
+
+  .red-background-button {
+    background-color: $red;
+  }
+
+  .red-background-button:hover {
+    background-color: darken($red, 5%);
+  }
+
+  .accept-cancel-button {
+    display: flex;
+    width: 155px;
+    height: 40px;
+    border-radius: 50px;
+    transition: background-color .25s ease;
+    margin: 2rem auto 0 auto;
+
+    div {
+      font-family: Roboto, sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      line-height: normal;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 0.04em;
+
+      margin: auto;
+      color: $white;
+    }
+
+  }
+}
+
+.favr-details {
+  padding-top: 2rem;
 }
