@@ -13,20 +13,21 @@ hr {
 }
 
 .favr-in-feed {
-  padding: 0rem 2rem 0 2rem;
+  padding: 0 2rem 0 2rem;
 }
 
 .add-favr-button {
   position: fixed;
   width: 45px;
   height: 45px;
-  border-radius: 50%;
+  //border-radius: 50%;
   right: 20%;
   top: 10rem;
-  background: #0e90d2;
+  //background: #0e90d2;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .main-feed-container {

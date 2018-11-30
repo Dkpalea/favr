@@ -11,6 +11,7 @@
         feedFavrs: [], // not complete && not posted/requested by logged in user
         myRequested: [], // all favrs requested by logged in user
         myAccepted: [], // all favrs accepted by logged in user
+        feedComponentHandle: null
       };
       const userIsLoggedIn = {{='false' if auth.user is None else 'true'}};
       const loggedInUserEmail = `{{='' if auth.user is None else str (auth.user.email)}}`;
@@ -21,6 +22,7 @@
       const acceptFavrUrl = `{{=URL('api', 'acceptFavr', user_signature=True)}}`;
       const cancelAcceptedFavrUrl = `{{=URL('api', 'cancelAcceptedFavr', user_signature=True)}}`;
       const alertExpiredFavrUrl = `{{=URL('api', 'alertExpiredFavr', user_signature=True)}}`;
+      const addFavrButtonImageSource = `{{=URL('static', 'images/addFavrButton.svg')}}`;
     </script>
     <div id="app"></div>
     <script type="text/javascript" src="{{=URL('static', 'js/default_index.js')}}"></script>

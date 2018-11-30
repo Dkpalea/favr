@@ -15,7 +15,9 @@
     "removeFavrUrl": false,
     "updateFavrUrl": false,
     "acceptFavrUrl": false,
-    "cancelAcceptedFavrUrl": false
+    "cancelAcceptedFavrUrl": false,
+    "addFavrButtonImageSource": false,
+    "feedComponentHandle": false
   },
   "rules": {
     "no-console": "off",

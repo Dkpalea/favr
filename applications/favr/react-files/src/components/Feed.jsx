@@ -27,7 +27,7 @@ class Feed extends Component {
     });
     return (
       <div className="main-feed-container">
-        <div onClick={() => this.addButtonCLicked()} className="add-favr-button" />
+        <img src={addFavrButtonImageSource} onClick={() => this.addButtonCLicked()} className="add-favr-button" />
         <div className="favr-feed">
           {favrComponents}
         </div>
@@ -51,10 +51,10 @@ Feed.propTypes = {
       lastName: PropTypes.string.isRequired,
     }).isRequired,
     REFfulfilledBy: PropTypes.shape({
-      email: PropTypes.string.isRequired,
+      email: PropTypes.string,
       // profilePicCode: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
     }),
     requestAmount: PropTypes.number.isRequired,
   })),

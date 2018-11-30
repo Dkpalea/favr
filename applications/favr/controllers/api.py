@@ -27,6 +27,19 @@ def addFavr():
     )
     return response.json(dict(favrId=favrId))
 
+def cancelAcceptedFavr():
+    # Allow cross origin requests (to test from react)
+    if request.env.http_origin:
+        response.headers['Access-Control-Allow-Origin'] = request.env.http_origin
+    if auth.user is not None:
+        row = db(db.favr.id == request.vars.favrId).select().first()
+        if row is not None and row.REFfulfilledBy == auth.user.email:
+            row.update_record(
+                REFfulfilledBy=None
+            )
+            return response.json(dict(message='success'))
+    return response.json(dict(message='error'))
+
 def getFavr():
     # Allow cross origin requests (to test from react)
     if request.env.http_origin:
@@ -34,8 +47,9 @@ def getFavr():
     results = []
     if auth.user is not None:
         if request.vars.setCode == 'feedFavr':
-            rows = db(db.favr.REFrequestedBy == auth.user.email and
-                      db.favr.isComplete == False
+            # db.favr.REFrequestedBy == auth.user.email and
+            print(auth.user.email)
+            rows = db(db.favr.isComplete == False
                       ).select(
                         db.favr.ALL, orderby=db.favr.requestTime)
         elif request.vars.setCode == 'myAccepted':
@@ -56,7 +70,7 @@ def getFavr():
     else:
         rows = db(db.favr.isComplete == 'F').select(db.favr.ALL, orderby=db.favr.requestTime)
 
-    if rows:
+    if rows is not None:
         for row in rows:
             REFrequestedByRow = db(db.auth_user.email == row.REFrequestedBy).select(
                 db.auth_user.first_name, db.auth_user.last_name).first()

@@ -12,6 +12,7 @@
         feedFavrs: [], // not complete && not posted/requested by logged in user
         myRequested: [], // all favrs requested by logged in user
         myAccepted: [], // all favrs accepted by logged in user
+        feedComponentHandle: null
       };
       const userIsLoggedIn = true;
       const loggedInUserEmail = `1234@1234.com`;
@@ -21,6 +22,7 @@
       const updateFavrUrl = `http://localhost:8000/favr/api/updateFavr`;
       const acceptFavrUrl = `http://localhost:8000/favr/api/acceptFavr`;
       const cancelAcceptedFavrUrl = `http://localhost:8000/favr/api/cancelAcceptedFavr`;
+      const addFavrButtonImageSource = `http://localhost:8000/favr/static/images/addFavrButton.svg`;
     </script>
     <script type="text/javascript" src="./bundle.js"></script>
 </body>

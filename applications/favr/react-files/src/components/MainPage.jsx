@@ -10,7 +10,7 @@ class MainPage extends Component {
   }
 
   componentWillMount() {
-    getFavr(`feedFavrs`, this);
+    getFavr(`feedFavr`, this);
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -19,6 +19,7 @@ class MainPage extends Component {
 
   render() {
     console.log(this.state.feedFavrsState);
+    storeState.feedComponentHandle = this;
     // const now = new Date(Date.now() + 100000);
     return (
       <div className="main-page-container">

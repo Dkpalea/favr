@@ -54,7 +54,7 @@ const getFavr = (setCode, context) => {
   }, data => {
     console.log(setCode);
     console.log(data);
-    if (setCode === `feedFavrs`) {
+    if (setCode === `feedFavr`) {
       context.setState({feedFavrsState: data.favrSet});
       storeState.feedFavrs = data.favrSet;
       console.log(`imhere`);
@@ -76,7 +76,28 @@ const updateFavr = () => {};
 const acceptFavr = () => {};
 
 // Cancel Accepted favr (both as a requester and a fulfiller)
-const cancelAcceptedFavr = () => {};
+const cancelAcceptedFavr = favrId => {
+  $.post(cancelAcceptedFavrUrl, {
+    favrId,
+  }, data => {
+    console.log(data);
+    if (data.message === `success`) {
+      storeState.feedFavrs.map(favrObj => {
+        if (favrObj.favrId === favrId) {
+          favrObj.REFfulfilledBy = {
+            // TODO: add profile pic char
+            email: null,
+            firstName: null,
+            lastName: null,
+          };
+        }
+      });
+      storeState.feedComponentHandle.setState( { feedFavrsState: storeState.feedFavrs } );
+    } else {
+      alert(`Sorry. We could not complete your request. :(`);
+    }
+  });
+};
 
 // Alert expired favr
 const alertExpiredFavr = () => {};

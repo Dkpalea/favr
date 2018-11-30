@@ -59,12 +59,6 @@ module.exports = {
     watchContentBase: true,
     host: `0.0.0.0`,
     port: 8080,
-    after: () => {
-      nodeCmd.run(`touch yoyo.txt`);
-    },
-    setup: () => {
-      nodeCmd.run(`touch yang.txt`);
-    },
   },
   mode: `development`,
 };

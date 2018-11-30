@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { addFavr } from '../stateStoreAndFunctions';
+import { cancelAcceptedFavr } from '../stateStoreAndFunctions';
 
 const favr = {
   favrId: `123`,
@@ -114,16 +114,16 @@ class Favr extends Component {
         <div className="favr-card-lower-info">
           <div className="favr-card-lower-info-container-button-container">
             <div className="flex-container">
-              <span className="claimed-label favr-card-info-font">Claimed by: </span>
-              <div className="favr-card-lower-info-pic-text-container">
+              <span className={`claimed-label favr-card-info-font ${REFfulfilledBy.email===null?`visibility-hidden`:``}`}>Claimed by: </span>
+              <div className={`favr-card-lower-info-pic-text-container ${REFfulfilledBy.email===null?`visibility-hidden`:``}`}>
                 <div className="favr-card-profile-pic" />
                 <div className="favr-card-lower-info-text">
                   <div className="favr-card-username">{REFfulfilledBy.email===loggedInUserEmail?(`You!`):(`${REFfulfilledBy.firstName} ${REFfulfilledBy.lastName}`)}</div>
-                  <div className="favr-card-info-font favr-card-lower-info-text-under">started 10min ago</div>
+                  {/*<div className="favr-card-info-font favr-card-lower-info-text-under">started 10min ago</div>*/}
                 </div>
               </div>
             </div>
-            <button type="submit" className="favr-card-action-button" onClick={() => this.showDetails(favrId)}>
+            <button type="submit" className={`favr-card-action-button ${REFfulfilledBy.email===loggedInUserEmail?`green-background-button`:`blue-background-button`}`} onClick={() => this.showDetails(favrId)}>
               {/* addFavr(title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount */}
               <div>{detailsAreShowing?`Hide details`:`See details`}</div>
             </button>
@@ -132,7 +132,14 @@ class Favr extends Component {
         {/* id={`favr-${favrId}-details`} */}
         <div id={`favr-${favrId}-details`} className="details-container">
           <div className="measuring-container">
-            <div className="favr-description">{details}</div>
+            <div className="favr-details green-background-button">
+              {details}
+              <div className="accept-cancel-button-container">
+                <button type="submit" className={`accept-cancel-button ${REFfulfilledBy.email===loggedInUserEmail?`red-background-button`:`green-background-button`}`}>
+                  <div>{`${REFfulfilledBy.email===loggedInUserEmail?`Cancel`:`Accept`}`}</div>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
