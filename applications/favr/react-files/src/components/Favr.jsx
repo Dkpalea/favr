@@ -36,6 +36,8 @@ const modalStyles = {
     bottom: `auto`,
     marginRight: `-50%`,
     transform: `translate(-50%, -50%)`,
+    width: `50%`,
+    paddingRight: `25px`,
   },
 };
 
@@ -68,7 +70,7 @@ class Favr extends Component {
     }, 1000);
   }
 
-  showDetails = (favrId, secondButtonCrop) => {
+  showDetails = favrId => {
     let growDiv = document.getElementById(`favr-${favrId}-details`);
     // let growDiv = document.getElementById(`swag`);
     console.log(favrId);
@@ -82,7 +84,7 @@ class Favr extends Component {
       growDiv.style.height = `0`;
     } else {
       let container = document.getElementById(`favr-${favrId}-measuring-container`);
-      growDiv.style.height = `${container.clientHeight-secondButtonCrop}px`;
+      growDiv.style.height = `${container.clientHeight}px`;
     }
     //document.getElementById(`more-button`).value=document.getElementById(`more-button`).value===`Read more`?`Read less`:`Read more`;
     this.setState(state => {
@@ -179,7 +181,7 @@ class Favr extends Component {
                 </div>
               </div>
             </div>
-            <button type="submit" className={`favr-card-action-button ${REFfulfilledBy.email===loggedInUserEmail||REFrequestedBy.email===loggedInUserEmail?`green-background-button`:`blue-background-button`}`} onClick={() => this.showDetails(favrId, REFrequestedBy.email===loggedInUserEmail?0:60)}>
+            <button type="submit" className={`favr-card-action-button ${REFfulfilledBy.email===loggedInUserEmail||REFrequestedBy.email===loggedInUserEmail?`green-background-button`:`blue-background-button`}`} onClick={() => this.showDetails(favrId)}>
               {/* addFavr(title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount */}
               <div>{detailsAreShowing?`Hide details`:`See details`}</div>
             </button>
@@ -193,7 +195,7 @@ class Favr extends Component {
               <div className={`button-container ${REFfulfilledBy.email===loggedInUserEmail||REFfulfilledBy.email===null||REFrequestedBy.email===loggedInUserEmail?``:`visibility-hidden`}`}>
                 {this.showEditButton(REFrequestedBy, favrId)}
 
-
+                {/* FIXME: cancel button not showing on fulfilled favrs */}
                 <div id={`favr-${favrId}-edit`} className="details-container">
                   <div id={`favr-${favrId}-edit-measuring-container`}>
                     <div className="favr-details green-background-button">
@@ -233,18 +235,28 @@ class Favr extends Component {
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={modalStyles}
-          contentLabel="Example Modal"
+          contentLabel="modal-content"
         >
-
-          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
+          {/*<h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>*/}
           <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
+            Title
+            <br />
+            <input className="text-input" type="text" name="title" />
+            $
+            <br />
+            <input className="text-input" type="number" name="offer-amount" min="1" max="100" />
+            Pickup Location
+            <br />
+            <input className="text-input" type="text" name="pickup-location" />
+            Drop-off Location
+            <br />
+            <input className="text-input" type="text" name="drop-off-location" />
+            Expiration Time
+            <br />
+            <input className="text-input" type="text" name="expiration-time" />
+            Details
+            <br />
+            <textarea className="text-input" rows="3" name="details" />
           </form>
         </Modal>
       </div>
