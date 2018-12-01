@@ -108,5 +108,7 @@ fabric.properties
 # node_modules
 node_modules
 
-
+*.log
+*.table
+*.sqlite
 # End of https://www.gitignore.io/api/macos,webstorm
