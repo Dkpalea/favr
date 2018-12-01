@@ -188,12 +188,21 @@
   }
 }
 
-.accept-cancel-button-container {
+.button-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
 
   button:active {
     transform: scale(0.98);
+  }
+
+  .yellow-background-button {
+    background-color: $yellow;
+  }
+
+  .yellow-background-button:hover {
+    background-color: darken($yellow, 5%);
   }
 
   .green-background-button {
@@ -238,4 +247,8 @@
 
 .favr-details {
   padding-top: 2rem;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

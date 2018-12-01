@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import {cancelAcceptedFavr, acceptFavr, removeFavr} from '../stateStoreAndFunctions';
+import Modal from 'react-modal';
+import {cancelAcceptedFavr, acceptFavr, removeFavr, updateFavr} from '../stateStoreAndFunctions';
+
 
 const favr = {
   favrId: `123`,
@@ -24,12 +26,28 @@ const favr = {
   requestAmount: 12,
 };
 
+Modal.setAppElement(`#app`);
+
+const modalStyles = {
+  content: {
+    top: `50%`,
+    left: `50%`,
+    right: `auto`,
+    bottom: `auto`,
+    marginRight: `-50%`,
+    transform: `translate(-50%, -50%)`,
+  },
+};
+
 class Favr extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {detailsAreShowing: false, timeRemaining: null};
+    this.state = {detailsAreShowing: false, timeRemaining: null, isEditing: false, favrEditId: null, temporaryEditingFavr: null};
     this.showDetails = this.showDetails.bind(this);
+    this.showEditButton = this.showEditButton.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
   }
 
   componentWillMount() {
@@ -50,21 +68,59 @@ class Favr extends Component {
     }, 1000);
   }
 
-  showDetails = favrId => {
+  showDetails = (favrId, secondButtonCrop) => {
     let growDiv = document.getElementById(`favr-${favrId}-details`);
     // let growDiv = document.getElementById(`swag`);
     console.log(favrId);
     // let growDiv = document.getElementById(`swag`);
-    if (growDiv.clientHeight) {
+    if (this.state.isEditing) {
+      growDiv.style.height = `0`;
+      this.setState(() => {
+        return {isEditing: false};
+      });
+    } else if (growDiv.clientHeight) {
       growDiv.style.height = `0`;
     } else {
-      let container = document.querySelector(`.measuring-container`);
-      growDiv.style.height = `${container.clientHeight}px`;
+      let container = document.getElementById(`favr-${favrId}-measuring-container`);
+      growDiv.style.height = `${container.clientHeight-secondButtonCrop}px`;
     }
     //document.getElementById(`more-button`).value=document.getElementById(`more-button`).value===`Read more`?`Read less`:`Read more`;
     this.setState(state => {
       return {detailsAreShowing: !state.detailsAreShowing};
     });
+  };
+
+  showEditForm = favrId => {
+    console.log(`here`);
+    document.body.classList.add(`no-scroll`);
+    this.setState(state => {
+      return {isEditing: !state.isEditing, favrEditId: favrId};
+    });
+  };
+
+  showEditButton = (REFrequestedBy, favrId) => {
+    if (REFrequestedBy.email===loggedInUserEmail) {
+      return (
+        <button
+          type="submit"
+          className="accept-cancel-button yellow-background-button"
+          onClick={() => {this.showEditForm(favrId)}}
+        >
+          <div>Edit</div>
+        </button>
+      );
+    }
+    return null;
+  };
+
+  closeModal = () => {
+    document.body.classList.remove(`no-scroll`);
+    this.setState({isEditing: false});
+    this.setState({favrEditId: null});
+  };
+
+  afterOpenModal = () => {
+    this.setState({temporaryEditingFavr: storeState.feedFavrs.filter(favrObj => favrObj.favrId===this.state.favrEditId)[0]});
   };
 
   render() {
@@ -123,7 +179,7 @@ class Favr extends Component {
                 </div>
               </div>
             </div>
-            <button type="submit" className={`favr-card-action-button ${REFfulfilledBy.email===loggedInUserEmail||REFrequestedBy.email===loggedInUserEmail?`green-background-button`:`blue-background-button`}`} onClick={() => this.showDetails(favrId)}>
+            <button type="submit" className={`favr-card-action-button ${REFfulfilledBy.email===loggedInUserEmail||REFrequestedBy.email===loggedInUserEmail?`green-background-button`:`blue-background-button`}`} onClick={() => this.showDetails(favrId, REFrequestedBy.email===loggedInUserEmail?0:60)}>
               {/* addFavr(title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount */}
               <div>{detailsAreShowing?`Hide details`:`See details`}</div>
             </button>
@@ -131,22 +187,40 @@ class Favr extends Component {
         </div>
         {/* id={`favr-${favrId}-details`} */}
         <div id={`favr-${favrId}-details`} className="details-container">
-          <div className="measuring-container">
+          <div id={`favr-${favrId}-measuring-container`}>
             <div className="favr-details green-background-button">
               {details}
-              <div className={`accept-cancel-button-container ${REFfulfilledBy.email===loggedInUserEmail||REFfulfilledBy.email===null||REFrequestedBy.email===loggedInUserEmail?``:`visibility-hidden`}`}>
-                <button type="submit" className={`accept-cancel-button ${REFfulfilledBy.email===loggedInUserEmail||REFrequestedBy.email===loggedInUserEmail?`red-background-button`:`green-background-button`}`} onClick={() => {
-                  if (REFfulfilledBy.email===loggedInUserEmail) {
+              <div className={`button-container ${REFfulfilledBy.email===loggedInUserEmail||REFfulfilledBy.email===null||REFrequestedBy.email===loggedInUserEmail?``:`visibility-hidden`}`}>
+                {this.showEditButton(REFrequestedBy, favrId)}
+
+
+                <div id={`favr-${favrId}-edit`} className="details-container">
+                  <div id={`favr-${favrId}-edit-measuring-container`}>
+                    <div className="favr-details green-background-button">
+                      {details}
+                    </div>
+                  </div>
+                </div>
+
+
+                <button
+                  type="submit"
+                  className={`accept-cancel-button ${REFfulfilledBy.email===loggedInUserEmail||REFrequestedBy.email===loggedInUserEmail?`red-background-button`:`green-background-button`}`}
+                  onClick={() => {
+                    if (this.state.isEditing) {
+                    // update
+                      updateFavr(favrId, this);
+                    } else if (REFfulfilledBy.email===loggedInUserEmail) {
                     // cancel
-                    cancelAcceptedFavr(favrId);
-                  } else if (REFrequestedBy.email===loggedInUserEmail) {
+                      cancelAcceptedFavr(favrId);
+                    } else if (REFrequestedBy.email===loggedInUserEmail) {
                     // remove
-                    removeFavr(favrId);
-                  } else if (REFfulfilledBy.email===null) {
+                      removeFavr(favrId);
+                    } else if (REFfulfilledBy.email===null) {
                     // accept
-                    acceptFavr(favrId);
-                  }
-                }}
+                      acceptFavr(favrId);
+                    }
+                  }}
                 >
                   <div>{`${REFfulfilledBy.email===loggedInUserEmail?`Cancel`:REFrequestedBy.email===loggedInUserEmail?`Remove`:`Accept`}`}</div>
                 </button>
@@ -154,6 +228,25 @@ class Favr extends Component {
             </div>
           </div>
         </div>
+        <Modal
+          isOpen={this.state.isEditing}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={modalStyles}
+          contentLabel="Example Modal"
+        >
+
+          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
+          <button onClick={this.closeModal}>close</button>
+          <div>I am a modal</div>
+          <form>
+            <input />
+            <button>tab navigation</button>
+            <button>stays</button>
+            <button>inside</button>
+            <button>the modal</button>
+          </form>
+        </Modal>
       </div>
     );
   }
