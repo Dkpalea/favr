@@ -11,21 +11,36 @@ def add_post():
     # We return the id of the new post, so we can insert it along all the others.
     return response.json(dict(post_id=post_id))
 
-
+#TODO: security decorators
 # @auth.requires_signature()
 def addFavr():
     # Allow cross origin requests (to test from react)
     if request.env.http_origin:
         response.headers['Access-Control-Allow-Origin'] = request.env.http_origin
-    favrId = db.favr.insert(
-        title=request.vars.title,
-        details=request.vars.details,
-        pickupLocation=request.vars.pickupLocation,
-        dropoffLocation=request.vars.dropoffLocation,
-        expirationTime=datetime.datetime.utcfromtimestamp(float(request.vars.expirationTime)/1000.0),
-        requestAmount=request.vars.requestAmount
-    )
-    return response.json(dict(favrId=favrId))
+    if auth.user is not None:
+        favrId = db.favr.insert(
+            title=request.vars.title,
+            details=request.vars.details,
+            pickupLocation=request.vars.pickupLocation,
+            dropoffLocation=request.vars.dropoffLocation,
+            expirationTime=datetime.datetime.utcfromtimestamp(float(request.vars.expirationTime)/1000.0),
+            requestAmount=request.vars.requestAmount
+        )
+        return response.json(dict(favrId=favrId))
+
+def removeFavr():
+    # Allow cross origin requests (to test from react)
+    if request.env.http_origin:
+        response.headers['Access-Control-Allow-Origin'] = request.env.http_origin
+    if auth.user is not None:
+        row = db(db.favr.id == request.vars.favrId).select().first()
+        if row is not None and row.REFrequestedBy == auth.user.email:
+            print(row)
+            print('yellow')
+            db(db.favr.id == request.vars.favrId).delete()
+            print('here')
+            return response.json(dict(message='success'))
+    return response.json(dict(message='error'))
 
 def cancelAcceptedFavr():
     # Allow cross origin requests (to test from react)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { cancelAcceptedFavr, acceptFavr } from '../stateStoreAndFunctions';
+import {cancelAcceptedFavr, acceptFavr, removeFavr} from '../stateStoreAndFunctions';
 
 const favr = {
   favrId: `123`,
@@ -123,7 +123,7 @@ class Favr extends Component {
                 </div>
               </div>
             </div>
-            <button type="submit" className={`favr-card-action-button ${REFfulfilledBy.email===loggedInUserEmail?`green-background-button`:`blue-background-button`}`} onClick={() => this.showDetails(favrId)}>
+            <button type="submit" className={`favr-card-action-button ${REFfulfilledBy.email===loggedInUserEmail||REFrequestedBy.email===loggedInUserEmail?`green-background-button`:`blue-background-button`}`} onClick={() => this.showDetails(favrId)}>
               {/* addFavr(title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount */}
               <div>{detailsAreShowing?`Hide details`:`See details`}</div>
             </button>
@@ -134,9 +134,21 @@ class Favr extends Component {
           <div className="measuring-container">
             <div className="favr-details green-background-button">
               {details}
-              <div className={`accept-cancel-button-container ${REFfulfilledBy.email===loggedInUserEmail?``:`display-none`}`}>
-                <button type="submit" className={`accept-cancel-button ${REFfulfilledBy.email===loggedInUserEmail?`red-background-button`:`green-background-button`}`} onClick={() => acceptFavr(favrId)}>
-                  <div>{`${REFfulfilledBy.email===loggedInUserEmail?`Cancel`:`Accept`}`}</div>
+              <div className={`accept-cancel-button-container ${REFfulfilledBy.email===loggedInUserEmail||REFfulfilledBy.email===null||REFrequestedBy.email===loggedInUserEmail?``:`visibility-hidden`}`}>
+                <button type="submit" className={`accept-cancel-button ${REFfulfilledBy.email===loggedInUserEmail||REFrequestedBy.email===loggedInUserEmail?`red-background-button`:`green-background-button`}`} onClick={() => {
+                  if (REFfulfilledBy.email===loggedInUserEmail) {
+                    // cancel
+                    cancelAcceptedFavr(favrId);
+                  } else if (REFrequestedBy.email===loggedInUserEmail) {
+                    // remove
+                    removeFavr(favrId);
+                  } else if (REFfulfilledBy.email===null) {
+                    // accept
+                    acceptFavr(favrId);
+                  }
+                }}
+                >
+                  <div>{`${REFfulfilledBy.email===loggedInUserEmail?`Cancel`:REFrequestedBy.email===loggedInUserEmail?`Remove`:`Accept`}`}</div>
                 </button>
               </div>
             </div>
