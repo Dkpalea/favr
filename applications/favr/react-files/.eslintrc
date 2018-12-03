@@ -6,7 +6,18 @@
   },
   "extends": ["airbnb", "mixpanel"],
   "globals": {
-    "mixpanel": false
+    "mixpanel": false,
+    "storeState": true,
+    "userIsLoggedIn": false,
+    "loggedInUserEmail": false,
+    "addFavrUrl": false,
+    "getFavrUrl": false,
+    "removeFavrUrl": false,
+    "updateFavrUrl": false,
+    "acceptFavrUrl": false,
+    "cancelAcceptedFavrUrl": false,
+    "addFavrButtonImageSource": false,
+    "feedComponentHandle": false
   },
   "rules": {
     "no-console": "off",

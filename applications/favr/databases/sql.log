@@ -9,7 +9,7 @@ CREATE TABLE "web2py_session_favr"(
     "session_data" BLOB
 );
 success!
-timestamp: 2018-11-27T14:35:26.503000
+timestamp: 2018-11-29T16:28:21.825217
 CREATE TABLE "auth_user"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "first_name" CHAR(128),
@@ -21,21 +21,29 @@ CREATE TABLE "auth_user"(
     "registration_id" CHAR(512)
 );
 success!
-timestamp: 2018-11-27T14:35:26.550000
+timestamp: 2018-11-29T16:28:21.837919
 CREATE TABLE "auth_group"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "role" CHAR(512),
     "description" TEXT
 );
 success!
+<<<<<<< HEAD
 timestamp: 2018-11-27T14:35:26.581000
+=======
+timestamp: 2018-11-29T16:28:21.843827
+>>>>>>> 148ab877b27ca01c3f39b493ae374f65c94b675e
 CREATE TABLE "auth_membership"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
     "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  
 );
 success!
+<<<<<<< HEAD
 timestamp: 2018-11-27T14:35:26.628000
+=======
+timestamp: 2018-11-29T16:28:21.848796
+>>>>>>> 148ab877b27ca01c3f39b493ae374f65c94b675e
 CREATE TABLE "auth_permission"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  ,
@@ -44,7 +52,11 @@ CREATE TABLE "auth_permission"(
     "record_id" INTEGER
 );
 success!
+<<<<<<< HEAD
 timestamp: 2018-11-27T14:35:26.675000
+=======
+timestamp: 2018-11-29T16:28:21.854634
+>>>>>>> 148ab877b27ca01c3f39b493ae374f65c94b675e
 CREATE TABLE "auth_event"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "time_stamp" TIMESTAMP,
@@ -54,7 +66,11 @@ CREATE TABLE "auth_event"(
     "description" TEXT
 );
 success!
+<<<<<<< HEAD
 timestamp: 2018-11-27T14:35:26.753000
+=======
+timestamp: 2018-11-29T16:28:21.862968
+>>>>>>> 148ab877b27ca01c3f39b493ae374f65c94b675e
 CREATE TABLE "auth_cas"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
@@ -64,7 +80,11 @@ CREATE TABLE "auth_cas"(
     "renew" CHAR(1)
 );
 success!
+<<<<<<< HEAD
 timestamp: 2018-11-27T14:35:26.800000
+=======
+timestamp: 2018-11-29T16:28:21.868435
+>>>>>>> 148ab877b27ca01c3f39b493ae374f65c94b675e
 CREATE TABLE "post"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "post_author" CHAR(512),
@@ -73,11 +93,79 @@ CREATE TABLE "post"(
     "post_time" TIMESTAMP
 );
 success!
+<<<<<<< HEAD
 timestamp: 2018-11-27T14:35:26.857000
+=======
+timestamp: 2018-11-29T16:28:21.874196
+CREATE TABLE "favr"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "title" CHAR(512),
+    "details" CHAR(512),
+    "pickupLocation" CHAR(512),
+    "dropoffLocation" CHAR(512),
+    "expirationTime" TIMESTAMP,
+    "fulfillerStartTime" TIMESTAMP,
+    "REFrequestedBy" CHAR(512),
+    "REFfulfilledBy" CHAR(512),
+    "requestTime" TIMESTAMP,
+    "requestAmount" INTEGER,
+    "isComplete" CHAR(1)
+);
+success!
+timestamp: 2018-11-29T16:28:21.889564
+CREATE TABLE "test"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "title" CHAR(512),
+    "details" CHAR(512),
+    "pickupLocation" CHAR(512),
+    "dropoffLocation" CHAR(512),
+    "expirationTime" TIMESTAMP,
+    "fulfillerStartTime" TIMESTAMP,
+    "REFrequestedBy" CHAR(512),
+    "REFfulfilledBy" CHAR(512),
+    "requestTime" TIMESTAMP,
+    "requestAmount" INTEGER,
+    "isComplete" CHAR(1)
+);
+success!
+timestamp: 2018-11-29T16:28:21.899490
+>>>>>>> 148ab877b27ca01c3f39b493ae374f65c94b675e
 CREATE TABLE "thumb"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_email" CHAR(512),
     "post_id" INTEGER REFERENCES "post" ("id") ON DELETE CASCADE  ,
     "thumb_state" CHAR(512)
+);
+success!
+timestamp: 2018-11-30T14:03:10.101000
+CREATE TABLE "favr"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "title" CHAR(512),
+    "details" CHAR(512),
+    "pickupLocation" CHAR(512),
+    "dropoffLocation" CHAR(512),
+    "expirationTime" TIMESTAMP,
+    "fulfillerStartTime" TIMESTAMP,
+    "REFrequestedBy" CHAR(512),
+    "REFfulfilledBy" CHAR(512),
+    "requestTime" TIMESTAMP,
+    "requestAmount" INTEGER,
+    "isComplete" CHAR(1)
+);
+success!
+timestamp: 2018-11-30T14:03:10.170000
+CREATE TABLE "test"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "title" CHAR(512),
+    "details" CHAR(512),
+    "pickupLocation" CHAR(512),
+    "dropoffLocation" CHAR(512),
+    "expirationTime" TIMESTAMP,
+    "fulfillerStartTime" TIMESTAMP,
+    "REFrequestedBy" CHAR(512),
+    "REFfulfilledBy" CHAR(512),
+    "requestTime" TIMESTAMP,
+    "requestAmount" INTEGER,
+    "isComplete" CHAR(1)
 );
 success!

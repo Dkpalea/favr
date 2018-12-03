@@ -7,6 +7,7 @@ import $ from 'jquery';
 // };
 
 let favrObjectSchema = {
+  favrId: ``,
   isShowingDetails: false,
   title: ``,
   details: ``,
@@ -14,11 +15,13 @@ let favrObjectSchema = {
   dropoffLocation: ``,
   expirationTime: null,
   startTime: null,
-  __requestedBy: {
+  REFrequestedBy: {
+    email: ``,
     firstName: ``,
     lastName: ``,
   },
-  __fulFilledBy: {
+  REFfulFilledBy: {
+    email: ``,
     firstName: ``,
     lastName: ``,
   },
@@ -41,34 +44,37 @@ const cancelAcceptedFavrUrl = `{{=URL('api', 'cancelAcceptedFavr')}}`;
 
 
 // Add favr
-const addFavr = (favr) => {
-    $.post(addFavrUrl,
-        {
-            title: favr.title,
-            details: favr.details,
-            pickupLocation: favr.pickupLocation,
-            dropoffLocation: favr.dropoffLocation,
-            __requestedBy: {
-                firstName: favr.__requestedBy.firstName,
-                lastName: favr.__requestedBy.lastName
-            },
-            //want the server to assign time for favr to prevent attack
-            requestAmount: favr.requestAmount,
-            isComplete: false
-        },
-    )
-
+const addFavr = (title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount) => {
+  $.post(addFavrUrl, {
+    title,
+    details,
+    pickupLocation,
+    dropoffLocation,
+    expirationTime,
+    requestAmount,
+  }, data => {
+    console.log(data.favrId);
+  });
 };
 
 // Get favr
-const getFavr = (favrID) => {
-    $.getJSON(getFavrUrl,
-        {
-            favrID: favrID
-        },
-
-    )
-
+// setCodes: feedFavr, myAccepted, myRequested
+const getFavr = (setCode, context) => {
+  $.post(getFavrUrl, {
+    setCode,
+  }, data => {
+    console.log(setCode);
+    console.log(data);
+    if (setCode === `feedFavr`) {
+      context.setState({feedFavrsState: data.favrSet});
+      storeState.feedFavrs = data.favrSet;
+      console.log(`imhere`);
+    } else if (setCode === `myRequested`) {
+      storeState.myRequested = data.favrSet;
+    } else if (setCode === `myAccepted`) {
+      storeState.myAccepted = data.favrSet;
+    }
+  });
 };
 
 // Remove favr
@@ -90,25 +96,55 @@ const updateFavr = (favrID) => {
 };
 
 // Accept favr
-const acceptFavr = (favrID) => {
-    $.post(acceptFavrUrl,
-        )
-
+const acceptFavr = favrId => {
+  $.post(acceptFavrUrl, {
+    favrId,
+  }, data => {
+    console.log(data);
+    if (data.message === `success`) {
+      storeState.feedFavrs.map(favrObj => {
+        if (favrObj.favrId === favrId) {
+          favrObj.REFfulfilledBy = {
+            // TODO: add profile pic char
+            email: loggedInUserEmail,
+            firstName: data.firstName,
+            lastName: data.lastName,
+          };
+        }
+      });
+      storeState.feedComponentHandle.setState( { feedFavrsState: storeState.feedFavrs } );
+    } else {
+      alert(`Sorry. We could not complete your request. :(`);
+    }
+  });
 };
 
 // Cancel Accepted favr (both as a requester and a fulfiller)
-const cancelAcceptedFavr = (favrID) => {
-    $.post(cancelAcceptedFavrUrl,
-        {
-            favrID: favrID,
-            freeFavr: true
-        },
-        function (data) {
-            storeState.feedFavrs.push(data)
+const cancelAcceptedFavr = favrId => {
+  $.post(cancelAcceptedFavrUrl, {
+    favrId,
+  }, data => {
+    console.log(data);
+    if (data.message === `success`) {
+      storeState.feedFavrs.map(favrObj => {
+        if (favrObj.favrId === favrId) {
+          favrObj.REFfulfilledBy = {
+            // TODO: add profile pic char
+            email: null,
+            firstName: null,
+            lastName: null,
+          };
         }
-        )
-
+      });
+      storeState.feedComponentHandle.setState( { feedFavrsState: storeState.feedFavrs } );
+    } else {
+      alert(`Sorry. We could not complete your request. :(`);
+    }
+  });
 };
 
+// Alert expired favr
+const alertExpiredFavr = () => {};
 
-export { storeState, favrObjectSchema, addFavr, removeFavr, updateFavr, acceptFavr, cancelAcceptedFavr, getFavr };
+
+export { storeState, favrObjectSchema, addFavr, getFavr, removeFavr, updateFavr, acceptFavr, cancelAcceptedFavr, alertExpiredFavr };
