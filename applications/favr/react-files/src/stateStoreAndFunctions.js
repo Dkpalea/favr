@@ -147,4 +147,12 @@ const cancelAcceptedFavr = favrId => {
 const alertExpiredFavr = () => {};
 
 
-export { storeState, favrObjectSchema, addFavr, getFavr, removeFavr, updateFavr, acceptFavr, cancelAcceptedFavr, alertExpiredFavr };
+const getProfileInformation = () => {
+    $.getJSON(profileUrl,
+        function(data) {
+            console.log(data);
+        }
+    )
+}
+
+export { storeState, favrObjectSchema, addFavr, getFavr, removeFavr, updateFavr, acceptFavr, cancelAcceptedFavr, alertExpiredFavr, getProfileInformation };

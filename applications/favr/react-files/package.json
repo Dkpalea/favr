@@ -21,7 +21,9 @@
   },
   "watch": {
     "build": {
-      "patterns": ["src"],
+      "patterns": [
+        "src"
+      ],
       "extensions": "js,jsx, scss"
     }
   },
