@@ -157,7 +157,8 @@ class Favr extends Component {
           <div className="favr-card-upper-info-text">
             <div className="favr-card-username">{REFrequestedBy.email===loggedInUserEmail?(`You!`):(`${REFrequestedBy.firstName} ${REFrequestedBy.lastName}`)}</div>
             <div className="favr-card-upper-info-text-under">
-              <span className="favr-card-info-font">
+              {/* TODO: Hide pickup/dropoff when empty */}
+                <span className="favr-card-info-font">
                 <span className="favr-card-upper-info-expiration-low">{(timeRemaining!==null && timeRemaining>0)?`expires in ${timeRemaining}m`:`expires in <1m`}</span>
                 {`  |  pickup from ${pickupLocation}  |  delivery to ${dropoffLocation}`}
               </span>
@@ -192,10 +193,9 @@ class Favr extends Component {
           <div id={`favr-${favrId}-measuring-container`}>
             <div className="favr-details green-background-button">
               {details}
-              <div className={`button-container ${REFfulfilledBy.email===loggedInUserEmail||REFfulfilledBy.email===null||REFrequestedBy.email===loggedInUserEmail?``:`visibility-hidden`}`}>
+              <div className={`button-container ${(REFfulfilledBy.email===loggedInUserEmail||REFfulfilledBy.email===null||REFrequestedBy.email===loggedInUserEmail) && (userIsLoggedIn)?``:`visibility-hidden`}`}>
                 {this.showEditButton(REFrequestedBy, favrId)}
 
-                {/* FIXME: cancel button not showing on fulfilled favrs */}
                 <div id={`favr-${favrId}-edit`} className="details-container">
                   <div id={`favr-${favrId}-edit-measuring-container`}>
                     <div className="favr-details green-background-button">
@@ -234,29 +234,36 @@ class Favr extends Component {
           isOpen={this.state.isEditing}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
-          style={modalStyles}
+          // style={modalStyles}
           contentLabel="modal-content"
+          // className="Modal"
+          className="modal"
+          overlayClassName="overlay"
         >
           {/*<h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>*/}
+          <div className="edit-title">Edit f&#257;vr</div>
           <form>
-            Title
-            <br />
-            <input className="text-input" type="text" name="title" />
-            $
-            <br />
-            <input className="text-input" type="number" name="offer-amount" min="1" max="100" />
-            Pickup Location
-            <br />
-            <input className="text-input" type="text" name="pickup-location" />
-            Drop-off Location
-            <br />
-            <input className="text-input" type="text" name="drop-off-location" />
-            Expiration Time
-            <br />
+            <div className="input-label">Title</div>
+            <input className="text-input" type="text" name="title" placeholder="Can someone pickup a burrito from the Owl's Nest?" />
+            <div className="input-label">$</div>
+            <input className="text-input" type="number" name="offer-amount" min="1" max="100" placeholder="12 (whole dollars amounts)" />
+            <div className="input-label">Pickup Location</div>
+            <input className="text-input" type="text" name="pickup-location" placeholder="The Owl's Nest Restaurant" />
+            <div className="input-label">Drop-off Location</div>
+            <input className="text-input" type="text" name="drop-off-location" placeholder="Baskin Engineering 2 Room 506" />
+            <div className="input-label">Expiration Time</div>
             <input className="text-input" type="text" name="expiration-time" />
-            Details
-            <br />
-            <textarea className="text-input" rows="3" name="details" />
+            <div className="input-label">Details</div>
+            <textarea className="text-input" rows="3" name="details" placeholder="Can you please order me the Black Bean and Chicken Burrito, but with no cheese. It should cost about $7 so you get $5 out of the $12. Let me know! scasey@ucsc.edu" />
+            <div className="button-container">
+              <button
+                type="submit"
+                className="accept-cancel-button green-background-button"
+                onClick={() => {}}
+              >
+                <div>Save</div>
+              </button>
+            </div>
           </form>
         </Modal>
       </div>
