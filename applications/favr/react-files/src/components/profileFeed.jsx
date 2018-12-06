@@ -7,11 +7,12 @@ class ProfileFeed extends Component {
 
   constructor(props) {
     super(props);
-    this.addButtonCLicked = this.addButtonCLicked.bind(this);
+    this.showButtonClicked = this.showButtonClicked.bind(this);
+    this.showFeed = false;
   }
 
-  addButtonCLicked = () => {
-    $(`html, body`).animate({ scrollTop: 0 }, `fast`);
+  showButtonClicked = () => {
+    this.showFeed = !this.showFeed;
   };
 
   render() {
@@ -26,11 +27,13 @@ class ProfileFeed extends Component {
       );
     });
     return (
-      <div className="main-feed-container">
-        <img src={addFavrButtonImageSource} onClick={() => this.addButtonCLicked()} className="add-favr-button" />
+      <div className="profile-feed-container">
+        <button onClick={() => this.showButtonCLicked()} className="show-favr-feed">Show F&#257;vrs</button>
+        {this.showFeed &&
         <div className="favr-feed">
           {favrComponents}
         </div>
+        }
       </div>
     );
   }

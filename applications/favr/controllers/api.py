@@ -171,6 +171,15 @@ def get_profile_information():
     print(results)
     return response.json(dict(profile_info=results))
 
+@auth.requires_signature()
+def set_profile_information():
+    if auth.user is not None:
+        profile = db.profile.insert(
+            profile_symbol = request.vars.profile_symbol
+        )
+    print(profile)
+    return response.json(dict(profile_info=profile))
+
 
 
     

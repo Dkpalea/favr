@@ -6,7 +6,10 @@ import { getFavr, getProfileInformation } from '../stateStoreAndFunctions';
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
-    this.state = { feedFavrsState: storeState.feedFavrs };
+    this.state = { feedFavrsState: storeState.feedFavrs,
+                    profileSymbol: "\ud83d\ude01",
+                    userName: "Joe"
+                 };
   }
 
   componentWillMount() {
@@ -23,9 +26,14 @@ class ProfilePage extends Component {
     storeState.feedComponentHandle = this;
     // const now = new Date(Date.now() + 100000);
     return (
-      <div className="main-page-container">
-        <Navbar />
-        <div className="main-feed-container">
+      <div className="profile-page-container">
+      <div className="profile-page-symbol">
+            {this.state.profileSymbol}
+      </div>
+      <div className="profile-page-name">
+            {this.state.userName}
+      </div>
+        <div className="profile-feed-container">
           <ProfileFeed feedFavrs={this.state.feedFavrsState} />
         </div>
       </div>

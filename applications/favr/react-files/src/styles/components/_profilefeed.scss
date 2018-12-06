@@ -1,0 +1,46 @@
+hr {
+  margin: 2vw 0 2.5vw 0;
+  border: solid $gray 0.05rem;
+  border-radius: 0.05rem;
+}
+
+.favrs-container {
+  width: 100%;
+}
+
+.favr-feed {
+  max-width: 700px;
+}
+
+.favr-in-feed {
+  padding: 0 2rem 0 2rem;
+}
+
+.show-favr-feed {
+  position: fixed;
+  //width: 45px;
+  //height: 45px;
+  //border-radius: 50%;
+  right: 20%;
+  top: 35%;
+  //background: #0e90d2;
+  font-family: Roboto, sans-serif;
+  border-radius: 25px;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.profile-feed-container {
+  position: relative;
+  left: 50vw;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.display-none {
+  display: none;
+}

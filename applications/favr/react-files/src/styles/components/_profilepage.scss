@@ -1,0 +1,32 @@
+.profile-page-container {
+    background: linear-gradient(180deg, #083D77 67.96%, rgba(8, 61, 119, 0.95) 100%);
+    width: 100%;
+  }
+
+.profile-page-symbol {
+    color: $gray;
+    font-weight: bold;
+    font-size: $xxl;
+    left: 20%;
+    top: 5vh;
+    position: relative;
+    font-family: Roboto, sans-serif;
+
+}
+
+.profile-page-name {
+    color: $gray;
+    font-size: $l;
+    left: 20%;
+    top:8vh;
+    position: relative;
+    font-family: Roboto, sans-serif;
+}
+  
+  .profile-feed-container {
+    width: 50%;
+    padding-top: calc(3vw + 2.4rem);
+    display: flex;
+    justify-content: flex-end;
+  }
+  
