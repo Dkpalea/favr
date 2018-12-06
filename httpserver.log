@@ -15557,3 +15557,12 @@
 127.0.0.1, 2018-12-06 11:51:26, POST, /favr/api/getFavr, HTTP/1.1, 500, 2.225000
 127.0.0.1, 2018-12-06 11:51:26, POST, /favr/api/getFavr, HTTP/1.1, 500, 2.257000
 127.0.0.1, 2018-12-06 11:51:26, GET, /favr/default/user/not_authorized, HTTP/1.1, 403, 0.904000
+127.0.0.1, 2018-12-06 12:02:08, GET, /, HTTP/1.1, 303, 0.004000
+127.0.0.1, 2018-12-06 12:02:09, GET, /welcome/default/index, HTTP/1.1, 500, 1.468000
+127.0.0.1, 2018-12-06 12:02:09, GET, /favicon.ico, HTTP/1.1, 400, 0.001000
+127.0.0.1, 2018-12-06 12:02:12, GET, /favr/default/index, HTTP/1.1, 200, 0.447000
+127.0.0.1, 2018-12-06 12:02:13, GET, /favicon.ico, HTTP/1.1, 400, 0.004000
+127.0.0.1, 2018-12-06 12:02:14, GET, /favr/api/get_profile_information, HTTP/1.1, 303, 1.246000
+127.0.0.1, 2018-12-06 12:02:15, GET, /favr/default/user/not_authorized, HTTP/1.1, 403, 1.000000
+127.0.0.1, 2018-12-06 12:02:15, POST, /favr/api/getFavr, HTTP/1.1, 500, 2.308000
+127.0.0.1, 2018-12-06 12:02:15, POST, /favr/api/getFavr, HTTP/1.1, 500, 2.330000

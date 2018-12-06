@@ -4,8 +4,6 @@ import NotFoundPage from '../components/NotFoundPage';
 import MainPage from '../components/MainPage';
 import Favr from '../components/Favr';
 import Feed from '../components/Feed';
-
-
 import Navbar from '../components/Navbar';
 
 const AppRouter = () => (
@@ -13,6 +11,7 @@ const AppRouter = () => (
     <div>
       <Switch>
         <Route path="/" component={MainPage} exact />
+        <Route path="/navbar" component={Navbar} exact />
         {/*<Route path="/:topicLabel/:topicId/node/:nodeId?/:viewMode?" component={MainPage} />*/}
         {/*<Route component={NotFoundPage} />*/}
       </Switch>

@@ -1,13 +1,11 @@
 .navbar {
-  width: 100%;
+  min-width: 100%;
   position: fixed;
   background-color: $light-gray;
-  padding: 1vw;
-  z-index: 2;
+  padding: 1vw 0 1vw 0;
+  z-index: 1;
 
   .logo {
-    justify-self: center;
-
     font-family: Roboto, sans-serif;
     font-style: normal;
     font-weight: normal;

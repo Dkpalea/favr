@@ -78,15 +78,22 @@ const getFavr = (setCode, context) => {
 };
 
 // Remove favr
-const removeFavr = (favrID) => {
-    $.post(removeFavrUrl,
-        {
-            favrID: favrID,
-            delete: true
-        },
-
-        )
-
+const removeFavr = favrId => {
+  $.post(removeFavrUrl, {
+    favrId,
+  }, data => {
+    console.log(data);
+    if (data.message === `success`) {
+      storeState.feedFavrs.map((favrObj, index) => {
+        if (favrObj.favrId === favrId) {
+          storeState.feedFavrs.splice(index, 1);
+        }
+      });
+      storeState.feedComponentHandle.setState( { feedFavrsState: storeState.feedFavrs } );
+    } else {
+      alert(`Sorry. We could not complete your request. :(`);
+    }
+  });
 };
 
 // Update favr
