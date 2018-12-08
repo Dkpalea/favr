@@ -112,5 +112,5 @@ node_modules
 *.table
 *.sqlite
 
-error/
 # End of https://www.gitignore.io/api/macos,webstorm
+applications/favr/errors/

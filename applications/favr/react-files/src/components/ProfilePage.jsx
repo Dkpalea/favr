@@ -19,29 +19,30 @@ class ProfilePage extends Component {
     getFavr(`myAccepted`, this);
     getFavr(`feedFavr`, this);
     getProfileInformation();
-    feedFavrsState.filter(this.myFavrs);
   }
 
-  myFavrs(email){
-      return loggedInUserEmail == email
-  }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    console.log(storeState.feedFavrs);
+    //console.log(storeState.feedFavrs);
   }
 
   render() {
-    console.log(this.state.feedFavrsState);
+    //console.log(this.state.feedFavrsState);
+    this.state.feedFavrsState = this.state.feedFavrsState.filter(function(el) {
+        return  el.REFrequestedBy.email == loggedInUserEmail ||
+                el.REFfulfilledBy.email == loggedInUserEmail
+    })
     storeState.feedComponentHandle = this;
     // const now = new Date(Date.now() + 100000);
     return (
       <div className="profile-page-container">
-        <div className="">
+        <div className="profile-page-card">
             <div className="profile-page-symbol">
                 {this.state.profileSymbol}
             </div>
             <div className="profile-page-name">
-                {this.state.userName}
+                {this.state.firstName}
+                {this.state.lastName}
             </div>
         </div>
         <div className="profile-feed-container">

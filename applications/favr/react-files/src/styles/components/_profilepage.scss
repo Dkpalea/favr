@@ -4,25 +4,27 @@ ul {
 
 
 .profile-page-container {
-    background: linear-gradient(180deg, #083D77 67.96%, rgba(8, 61, 119, 0.95) 100%);
+    background: linear-gradient(180deg, #083D77 67.96%, rgba(7, 43, 82, 0.95) 100%);
     margin: 0;
     width: 100%;
   }
   
 .profile-page-card {
-    background: $gray;
-    margin: 0;
+    background: $white;
+    margin-left: 20%;
+    margin-right: 60%;
+    position: relative;
     border-radius: 25px;
-    left: 20%;
-    top: 20%;
+    //left: 5vw;
+    //top: 5vw;
 }
 
 .profile-page-symbol {
     color: $gray;
     font-weight: bold;
     font-size: $xxl;
-    left: 20%;
-    top: 5vh;
+    //left: 5vw;
+    //top: 5vh;
     position: relative;
     font-family: Roboto, sans-serif;
 
@@ -31,8 +33,8 @@ ul {
 .profile-page-name {
     color: $gray;
     font-size: $l;
-    left: 20%;
-    top:8vh;
+    //left: 20%;
+    //top:8vh;
     position: relative;
     font-family: Roboto, sans-serif;
 }

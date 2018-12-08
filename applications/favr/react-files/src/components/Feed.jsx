@@ -7,7 +7,7 @@ class Feed extends Component {
   constructor(props) {
     super(props);
     this.addButtonCLicked = this.addButtonCLicked.bind(this);
-    this.showFeed = false;
+    this.showFeed = true;
   }
 
   showButtonClicked() {
@@ -61,7 +61,7 @@ class Feed extends Component {
               onClick={() => this.showButtonClicked()}
               className="show-favr-feed"
             >
-              Show F&#257;vrs
+              Hide F&#257;vrs
             </button>
             <div className="profile-feed-container">
               <div className="profile-favr-feed">{favrComponents}</div>

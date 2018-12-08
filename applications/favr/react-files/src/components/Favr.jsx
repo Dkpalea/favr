@@ -127,7 +127,7 @@ class Favr extends Component {
 
   render() {
 
-    console.log(this.props.favr);
+    //console.log(this.props.favr);
 
     const { detailsAreShowing, timeRemaining } = this.state;
 
