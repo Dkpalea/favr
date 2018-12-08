@@ -86,7 +86,35 @@ const removeFavr = favrId => {
 };
 
 // Update favr
-const updateFavr = () => {};
+const updateFavr = (favrId, title, requestAmount, pickupLocation, dropoffLocation, expirationTime, details) => {
+  console.log(favrId, title, requestAmount, pickupLocation, dropoffLocation, expirationTime, details);
+  $.post(updateFavrUrl, {
+    favrId,
+    title,
+    requestAmount,
+    pickupLocation,
+    dropoffLocation,
+    expirationTime,
+    details,
+  }, data => {
+    console.log(data);
+    if (data.message === `success`) {
+      storeState.feedFavrs.map((favrObj, index) => {
+        if (favrObj.favrId === favrId) {
+          storeState.feedFavrs[index].title = title;
+          storeState.feedFavrs[index].requestAmount = parseInt(requestAmount, 10);
+          storeState.feedFavrs[index].pickupLocation = pickupLocation;
+          storeState.feedFavrs[index].dropoffLocation = dropoffLocation;
+          storeState.feedFavrs[index].expirationTime = expirationTime;
+          storeState.feedFavrs[index].details = details;
+        }
+      });
+      storeState.feedComponentHandle.setState( { feedFavrsState: storeState.feedFavrs } );
+    } else {
+      alert(`Sorry. We could not complete your request. :(`);
+    }
+  });
+};
 
 // Accept favr
 const acceptFavr = favrId => {
