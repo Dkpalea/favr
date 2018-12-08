@@ -60,6 +60,7 @@ const addFavr = (title, details, pickupLocation, dropoffLocation, expirationTime
 // Get favr
 // setCodes: feedFavr, myAccepted, myRequested
 const getFavr = (setCode, context) => {
+    console.log("getFavrRun")
   $.post(getFavrUrl, {
     setCode,
   }, data => {

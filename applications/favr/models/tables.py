@@ -19,8 +19,11 @@ import datetime
 def get_user_email():
     return None if auth.user is None else auth.user.email
 
-def get_user_name():
-    return None if auth.user is None else ("" + auth.user.first_name + auth.user.last_name)
+def get_user_first():
+    return None if auth.user is None else auth.user.first_name
+
+def get_user_last():
+    return None if auth.user is None else auth.user.last_name
 
 def get_current_time():
     return datetime.datetime.utcnow()
@@ -49,7 +52,8 @@ db.define_table('favr',
 db.define_table('profile',
                 Field('profile_symbol'),
                 Field('user_email', default=get_user_email()),
-                Field('user_name', default=get_user_name())
+                Field('first_name', default=get_user_first()),
+                Field('last_name', default=get_user_last())
                 )
 
 # db.favr.requestAmount.requires = IS_INT_IN_RANGE(-1e100, 1e100)

@@ -9,33 +9,45 @@ class ProfileFeed extends Component {
     super(props);
     this.showButtonClicked = this.showButtonClicked.bind(this);
     this.showFeed = false;
+    console.log("this_comp");
+    console.log(this);
   }
 
-  showButtonClicked = () => {
+  showButtonClicked() {
     this.showFeed = !this.showFeed;
-  };
+    console.log(this.showFeed);
+    this.forceUpdate();
+  }
 
   render() {
     const favrComponents = this.props.feedFavrs.map(favr => {
       return (
-        <div key={`favr-${favr.favrId}`} className="favrs-container">
-          <div className="favr-in-feed">
+        <div key={`favr-${favr.favrId}`} className="profile-favrs-container">
+          <div className="profile-favr-in-feed">
             <Favr favr={favr} />
           </div>
           <hr />
         </div>
       );
     });
-    return (
-      <div className="profile-feed-container">
-        <button onClick={() => this.showButtonCLicked()} className="show-favr-feed">Show F&#257;vrs</button>
-        {this.showFeed &&
-        <div className="favr-feed">
-          {favrComponents}
+
+    if(this.showFeed){
+        return (
+        <div className="profile-component">
+            <button onClick={() => this.showButtonClicked()} className="show-favr-feed">Show F&#257;vrs</button>
+        <div className="profile-feed-container">
+            
+            <div className="profile-favr-feed">
+            {favrComponents}
+            </div>
         </div>
-        }
-      </div>
-    );
+        </div>
+        );
+    } else {
+        return(
+            <button onClick={() => this.showButtonClicked()} className="show-favr-feed">Show F&#257;vrs</button>
+        )
+    }
   }
 }
 

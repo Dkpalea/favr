@@ -111,4 +111,6 @@ node_modules
 *.log
 *.table
 *.sqlite
+
+error/
 # End of https://www.gitignore.io/api/macos,webstorm

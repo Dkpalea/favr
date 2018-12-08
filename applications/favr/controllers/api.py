@@ -99,6 +99,7 @@ def getFavr():
     else:
         rows = db(db.favr.isComplete == 'F').select(db.favr.ALL, orderby=db.favr.requestTime)
 
+    print(rows)
     if rows is not None:
         for row in rows:
             REFrequestedByRow = db(db.auth_user.email == row.REFrequestedBy).select(
@@ -118,7 +119,6 @@ def getFavr():
             if REFfulfilledByRow is not None:
                 REFfulfilledBy['firstName'] = REFfulfilledByRow.first_name
                 REFfulfilledBy['lastName'] = REFfulfilledByRow.last_name
-
             results.append(
                 dict(
                     favrId=row.id,
@@ -136,6 +136,7 @@ def getFavr():
                     isComplete=row.isComplete,
                 )
             )
+            print(results)
     return response.json(dict(favrSet=results))
 
 def datetime_to_milliseconds(dt):

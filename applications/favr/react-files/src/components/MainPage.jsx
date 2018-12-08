@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Feed from './Feed';
 import Navbar from "./Navbar";
-import ProfilePage from "./ProfilePage";
 import { getFavr } from '../stateStoreAndFunctions';
 
 class MainPage extends Component {
@@ -11,7 +10,9 @@ class MainPage extends Component {
   }
 
   componentWillMount() {
+    console.log("reached?");
     getFavr(`feedFavr`, this);
+    console.log("resolved?");
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -27,10 +28,6 @@ class MainPage extends Component {
         <Navbar />
         <div className="main-feed-container">
           <Feed feedFavrs={this.state.feedFavrsState} />
-        </div>
-
-        <div>
-          <ProfilePage></ProfilePage>
         </div>
       </div>
 

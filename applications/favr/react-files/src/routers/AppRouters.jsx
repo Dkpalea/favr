@@ -5,6 +5,7 @@ import MainPage from '../components/MainPage';
 import Favr from '../components/Favr';
 import Feed from '../components/Feed';
 import Navbar from '../components/Navbar';
+import ProfilePage from '../components/ProfilePage';
 
 const AppRouter = () => (
   <HashRouter>
@@ -12,6 +13,7 @@ const AppRouter = () => (
       <Switch>
         <Route path="/" component={MainPage} exact />
         <Route path="/navbar" component={Navbar} exact />
+        <Route path="/profile" component={ProfilePage} exact />
         {/*<Route path="/:topicLabel/:topicId/node/:nodeId?/:viewMode?" component={MainPage} />*/}
         {/*<Route component={NotFoundPage} />*/}
       </Switch>
