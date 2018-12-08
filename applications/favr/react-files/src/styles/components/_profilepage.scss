@@ -7,12 +7,19 @@ ul {
     background: linear-gradient(180deg, #083D77 67.96%, rgba(7, 43, 82, 0.95) 100%);
     margin: 0;
     width: 100%;
+    max-height: 100vh;
+    height: 100vh;
+    display: flex;
+    z-index: 2;
   }
   
 .profile-page-card {
     background: $white;
-    margin-left: 20%;
-    margin-right: 60%;
+    //margin-left: 20%;
+    //margin-right: 60%;
+    display: flex;
+    justify-content: left;
+    width: 20%;
     position: relative;
     border-radius: 25px;
     //left: 5vw;

@@ -1,5 +1,4 @@
 hr {
-  margin: 2vw 0 2.5vw 0;
   border: solid $gray 0.05rem;
   border-radius: 0.05rem;
 }
@@ -35,7 +34,10 @@ hr {
 
 .profile-feed-container {
   //left: 20vw;
+  display: flex;
+  justify-content: flex-end;
   font-family: Roboto, sans-serif;
+  overflow: hidden;
 }
 
 .visibility-hidden {
