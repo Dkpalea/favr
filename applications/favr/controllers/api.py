@@ -77,7 +77,7 @@ def getFavr():
     if auth.user is not None:
         if request.vars.setCode == 'feedFavr':
             # db.favr.REFrequestedBy == auth.user.email and
-            print(auth.user.email)
+            # print(auth.user.email)
             rows = db(db.favr.isComplete == False
                       ).select(
                         db.favr.ALL, orderby=db.favr.requestTime)
@@ -99,7 +99,7 @@ def getFavr():
     else:
         rows = db(db.favr.isComplete == 'F').select(db.favr.ALL, orderby=db.favr.requestTime)
 
-    print(rows)
+    #print(rows)
     if rows is not None:
         for row in rows:
             REFrequestedByRow = db(db.auth_user.email == row.REFrequestedBy).select(
@@ -136,7 +136,7 @@ def getFavr():
                     isComplete=row.isComplete,
                 )
             )
-            print(results)
+            #print(results)
     return response.json(dict(favrSet=results))
 
 def datetime_to_milliseconds(dt):
@@ -175,25 +175,33 @@ def get_post_list():
     # For homogeneity, we always return a dictionary.
     return response.json(dict(post_list=results))
 
-@auth.requires_signature()
+#@auth.requires_signature()
 def get_profile_information():
     results = []
+    #print("reach here at least?")
+    #print(auth.user.email)
     if auth.user is not None:
-        row = db(db.profile.user == auth.user.email).select(db.profile.ALL)
+        #print("possibly here?")
+        #print(db.profile[5])
+        row = db.profile(db.profile.user_email == auth.user.email)
+        #print("this is the row")
+        #print(row)
         results.append(dict(
-            full_name = row.user_name,
+            first_name = row.first_name,
+            last_name = row.last_name,
             profile_symbol = row.profile_symbol,
         ))
-    print(results)
+        #print(results)
     return response.json(dict(profile_info=results))
 
 @auth.requires_signature()
 def set_profile_information():
+    profile = None
     if auth.user is not None:
-        profile = db.profile.insert(
-            profile_symbol = request.vars.profile_symbol
+        profile = db.profile.update_or_insert(
+            profile_symbol = request.vars.characterCode
         )
-    print(profile)
+    #print(profile)
     return response.json(dict(profile_info=profile))
 
 

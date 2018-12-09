@@ -15,6 +15,7 @@
 
 
 import datetime
+import random
 
 def get_user_email():
     return None if auth.user is None else auth.user.email
@@ -24,6 +25,12 @@ def get_user_first():
 
 def get_user_last():
     return None if auth.user is None else auth.user.last_name
+
+def random_symbol():
+    #"\ud83d\ude01"
+    partial = "\ud83d\ude"
+    final = partial + random.randint(0, 64)
+    return final
 
 def get_current_time():
     return datetime.datetime.utcnow()

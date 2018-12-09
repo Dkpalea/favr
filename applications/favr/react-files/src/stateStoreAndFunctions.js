@@ -155,12 +155,36 @@ const cancelAcceptedFavr = favrId => {
 const alertExpiredFavr = () => {};
 
 
-const getProfileInformation = () => {
-    $.getJSON(profileUrl,
+const getProfileInformation = (context) => {
+    console.log("reached_prof_info");
+    $.post(profileUrl,
+        {
+
+        },
         function(data) {
+            //need to give access to to profile_page
+            console.log('profileinformation');
             console.log(data);
+            console.log(data.profile_info.first_name);
+            //context.setState
+            context.setState({firstName: data.profile_info[0].first_name,
+                                lastName: data.profile_info[0].last_name,
+                                profileSymbol: data.profile_info[0].profile_symbol});
         }
     )
 }
 
-export { storeState, favrObjectSchema, addFavr, getFavr, removeFavr, updateFavr, acceptFavr, cancelAcceptedFavr, alertExpiredFavr, getProfileInformation };
+const setProfileInformation = (characterCode) => {
+    $.post(setProfileUrl,
+        {
+            characterCode
+        },
+        function(data) {
+            //need to give access to to profile_page
+            console.log('setInformation');
+            console.log(data);
+        }
+        );
+}
+
+export { storeState, favrObjectSchema, addFavr, getFavr, removeFavr, updateFavr, acceptFavr, cancelAcceptedFavr, alertExpiredFavr, getProfileInformation, setProfileInformation };
