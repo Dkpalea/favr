@@ -1,11 +1,7 @@
 import $ from 'jquery';
+import moment from "moment";
 
-// let storeState = {
-//   feedFavrs: [], // not complete && not posted/requested by logged in user
-//   myRequested: [], // all favrs requested by logged in user
-//   myAccepted: [], // all favrs accepted by logged in user
-// };
-
+// does nothing. just for our reference.
 let favrObjectSchema = {
   favrId: ``,
   isShowingDetails: false,
@@ -31,18 +27,43 @@ let favrObjectSchema = {
 };
 
 // API Call Methods
-
 // Add favr
-const addFavr = (title, details, pickupLocation, dropoffLocation, expirationTime, requestAmount) => {
+const addFavr = (context, title, requestAmount, pickupLocation, dropoffLocation, expirationTime, details) => {
   $.post(addFavrUrl, {
     title,
-    details,
+    requestAmount,
     pickupLocation,
     dropoffLocation,
     expirationTime,
-    requestAmount,
+    details,
   }, data => {
-    console.log(data.favrId);
+    if (data.message === `success`) {
+      console.log(data.favrId);
+      const newFavrObj = {
+        favrId: data.favrId,
+        title,
+        requestAmount,
+        pickupLocation,
+        dropoffLocation,
+        expirationTime,
+        details,
+        REFrequestedBy: {
+          email: loggedInUserEmail,
+          firstName: data.firstName,
+          lastName: data.lastName,
+        },
+        REFfulfilledBy: {
+          email: null,
+          firstName: null,
+          lastName: null,
+        },
+      };
+      storeState.feedFavrs.unshift(newFavrObj);
+      context.closeModal(`success`);
+    } else {
+      alert(`Sorry. We could not complete your request. :(\n\nPlease make sure all fields are ` +
+        `filled out and that your request amount is not negative.`);
+    }
   });
 };
 
@@ -86,7 +107,7 @@ const removeFavr = favrId => {
 };
 
 // Update favr
-const updateFavr = (favrId, title, requestAmount, pickupLocation, dropoffLocation, expirationTime, details) => {
+const updateFavr = (context, favrId, title, requestAmount, pickupLocation, dropoffLocation, expirationTime, details) => {
   console.log(favrId, title, requestAmount, pickupLocation, dropoffLocation, expirationTime, details);
   $.post(updateFavrUrl, {
     favrId,
@@ -110,6 +131,8 @@ const updateFavr = (favrId, title, requestAmount, pickupLocation, dropoffLocatio
         }
       });
       storeState.feedComponentHandle.setState( { feedFavrsState: storeState.feedFavrs } );
+      const newMoment = moment(expirationTime).utc();
+      context.setState({moment: newMoment, tempExpirationMoment: newMoment});
     } else {
       alert(`Sorry. We could not complete your request. :(`);
     }
@@ -131,6 +154,25 @@ const acceptFavr = favrId => {
             firstName: data.firstName,
             lastName: data.lastName,
           };
+        }
+      });
+      storeState.feedComponentHandle.setState( { feedFavrsState: storeState.feedFavrs } );
+    } else {
+      alert(`Sorry. We could not complete your request. :(`);
+    }
+  });
+};
+
+// Complete Favr
+const completeFavr = favrId => {
+  $.post(completeFavrUrl, {
+    favrId,
+  }, data => {
+    console.log(data);
+    if (data.message === `success`) {
+      storeState.feedFavrs.map((favrObj, index) => {
+        if (favrObj.favrId === favrId) {
+          storeState.feedFavrs.splice(index, 1);
         }
       });
       storeState.feedComponentHandle.setState( { feedFavrsState: storeState.feedFavrs } );
@@ -168,4 +210,4 @@ const cancelAcceptedFavr = favrId => {
 const alertExpiredFavr = () => {};
 
 
-export { storeState, favrObjectSchema, addFavr, getFavr, removeFavr, updateFavr, acceptFavr, cancelAcceptedFavr, alertExpiredFavr };
+export { addFavr, getFavr, removeFavr, updateFavr, acceptFavr, completeFavr, cancelAcceptedFavr, alertExpiredFavr };

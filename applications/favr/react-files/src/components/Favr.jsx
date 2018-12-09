@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import moment from 'moment';
 import { DatetimePicker } from 'rc-datetime-picker';
 import Modal from 'react-modal';
-import {cancelAcceptedFavr, acceptFavr, removeFavr, updateFavr} from '../stateStoreAndFunctions';
+import {cancelAcceptedFavr, acceptFavr, completeFavr, removeFavr, updateFavr} from '../stateStoreAndFunctions';
 
 
 const favr = {
@@ -54,37 +54,72 @@ class Favr extends Component {
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.saveEditForm = this.saveEditForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
 
-  componentWillMount() {
     const { favr: {expirationTime} } = this.props;
     let remainingTimeInMil = expirationTime - Date.now();
     this.setState({timeRemaining: Math.floor(remainingTimeInMil/60000)});
+    const momentFromExpirationTime = moment(this.props.favr.expirationTime).utc();
+    console.log(`fdhgfcgcgfch`);
+    console.log(momentFromExpirationTime);
+    this.setState({moment: momentFromExpirationTime, tempExpirationMoment: momentFromExpirationTime});
     const intervalId = setInterval(() => {
       // favr expired, clear timer
       if (this.state.timeRemaining!==null && this.state.timeRemaining<0) {
         clearInterval(intervalId);
         this.setState({timeRemaining: -1});
         // TODO: alertExpiredFavr()
+
       } else {
         remainingTimeInMil = expirationTime - Date.now();
         this.setState({timeRemaining: Math.floor(remainingTimeInMil/60000)});
       }
     }, 1000);
-    const momentFromExpirationTime = moment(this.props.favr.expirationTime).utc();
-    this.setState({moment: momentFromExpirationTime, tempExpirationMoment: momentFromExpirationTime});
   }
+
+  // componentWillMount() {
+  //   const { favr: {expirationTime} } = this.props;
+  //   let remainingTimeInMil = expirationTime - Date.now();
+  //   this.setState({timeRemaining: Math.floor(remainingTimeInMil/60000)});
+  //   const momentFromExpirationTime = moment(this.props.favr.expirationTime).utc();
+  //   console.log(`fdhgfcgcgfch`);
+  //   console.log(momentFromExpirationTime);
+  //   this.setState({moment: momentFromExpirationTime, tempExpirationMoment: momentFromExpirationTime});
+  //   const intervalId = setInterval(() => {
+  //     // favr expired, clear timer
+  //     if (this.state.timeRemaining!==null && this.state.timeRemaining<0) {
+  //       clearInterval(intervalId);
+  //       this.setState({timeRemaining: -1});
+  //       // TODO: alertExpiredFavr()
+  //     } else {
+  //       remainingTimeInMil = expirationTime - Date.now();
+  //       this.setState({timeRemaining: Math.floor(remainingTimeInMil/60000)});
+  //     }
+  //   }, 1000);
+  // }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps) {
-      let remainingTimeInMil = nextProps.favr.expirationTime - Date.now();
+      const remainingTimeInMil = nextProps.favr.expirationTime - Date.now();
       if (remainingTimeInMil !== prevState.timeRemaining) {
         return ({timeRemaining: Math.floor(remainingTimeInMil/60000)}); // <- this is setState equivalent
+      }
+
+      console.log(nextProps);
+      const momentFromExpirationTime = moment(nextProps.favr.expirationTime).utc();
+      if (momentFromExpirationTime !== prevState.moment) {
+        console.log(`resetting state!`);
+        return ({moment: momentFromExpirationTime, tempExpirationMoment: momentFromExpirationTime});
       }
     }
   }
 
   showDetails = favrId => {
+    const momentFromExpirationTime = moment(this.props.favr.expirationTime).utc();
+    console.log(`hi`);
+    console.log(momentFromExpirationTime);
+    this.setState({moment: momentFromExpirationTime, tempExpirationMoment: momentFromExpirationTime});
+
+
     let growDiv = document.getElementById(`favr-${favrId}-details`);
     // let growDiv = document.getElementById(`swag`);
     // let growDiv = document.getElementById(`swag`);
@@ -130,6 +165,11 @@ class Favr extends Component {
   closeModal = () => {
     document.body.classList.remove(`no-scroll`);
     this.setState({isEditing: false});
+    if (this.state.moment !== this.state.tempExpirationMoment) {
+      console.log(`__this.state.moment: ${this.state.moment}`);
+      console.log(`__this.state.tempExpirationMoment: ${this.state.tempExpirationMoment}`);
+      this.setState({tempExpirationMoment: this.state.moment});
+    }
     // this.setState({favrEditId: null});
   };
 
@@ -141,17 +181,20 @@ class Favr extends Component {
   saveEditForm = favrId => {
     console.log(`fromFunction: ${favrId}`);
     const title = document.getElementById(`favr-${favrId}-input-title`).value;
-    const requestAmount = document.getElementById(`favr-${favrId}-input-$`).value;
+    const requestAmount = Math.floor(parseInt(document.getElementById(`favr-${favrId}-input-$`).value, 10));
     const pickupLocation = document.getElementById(`favr-${favrId}-input-pickup`).value;
     const dropoffLocation = document.getElementById(`favr-${favrId}-input-dropoff`).value;
     const expirationTime = this.state.tempExpirationMoment.valueOf();
     const details = document.getElementById(`favr-${favrId}-input-details`).value;
     console.log(title, requestAmount, pickupLocation, dropoffLocation, expirationTime, details);
-    updateFavr(favrId, title, requestAmount, pickupLocation, dropoffLocation, expirationTime, details);
+    updateFavr(this, favrId, title, requestAmount, pickupLocation, dropoffLocation, expirationTime, details);
   };
 
   handleChange = moment => {
     console.log(moment);
+    // FIXME: rc-datetime-picker does not deselect once user is finished editing so a double click
+    //  is required to exit modal. Should check currently selected element.
+    // document.getElementsByClassName(`ReactModal__Overlay ReactModal__Overlay--after-open overlay`)[0].click();
     this.setState({tempExpirationMoment: moment});
   };
 
@@ -235,24 +278,28 @@ class Favr extends Component {
 
                 <button
                   type="submit"
-                  className={`accept-cancel-button ${REFfulfilledBy.email===loggedInUserEmail||REFrequestedBy.email===loggedInUserEmail?`red-background-button`:`green-background-button`}`}
+                  className={`accept-cancel-button ${(REFfulfilledBy.email===loggedInUserEmail || (REFrequestedBy.email===loggedInUserEmail && REFfulfilledBy.email===null))?`red-background-button`:`green-background-button`}`}
                   onClick={() => {
                     if (this.state.isEditing) {
                     // update
                       updateFavr(favrId, this);
                     } else if (REFfulfilledBy.email===loggedInUserEmail) {
-                    // cancel
+                    // cancel red
                       cancelAcceptedFavr(favrId);
-                    } else if (REFrequestedBy.email===loggedInUserEmail) {
-                    // remove
+                    } else if (REFrequestedBy.email===loggedInUserEmail && REFfulfilledBy.email===null) {
+                    // remove red
                       removeFavr(favrId);
-                    } else if (REFfulfilledBy.email===null) {
-                    // accept
+                    } else if (REFrequestedBy.email!==loggedInUserEmail && REFfulfilledBy.email===null) {
+                    // accept green
                       acceptFavr(favrId);
+                    } else if (REFrequestedBy.email===loggedInUserEmail && REFfulfilledBy.email!==null) {
+                    // complete green
+                      completeFavr(favrId);
                     }
                   }}
                 >
-                  <div>{`${REFfulfilledBy.email===loggedInUserEmail?`Cancel`:REFrequestedBy.email===loggedInUserEmail?`Remove`:`Accept`}`}</div>
+                  {/*<div>{`${REFfulfilledBy.email===loggedInUserEmail?`Cancel`:REFrequestedBy.email===loggedInUserEmail?`Remove`:`Accept`}`}</div>*/}
+                  <div>{`${REFfulfilledBy.email===loggedInUserEmail?`Cancel`:REFrequestedBy.email===loggedInUserEmail && REFfulfilledBy.email===null?`Remove`:REFrequestedBy.email!==loggedInUserEmail && REFfulfilledBy.email===null?`Accept`:REFrequestedBy.email===loggedInUserEmail && REFfulfilledBy.email!==null?`Complete`:`?`}`}</div>
                 </button>
               </div>
             </div>
@@ -272,7 +319,7 @@ class Favr extends Component {
           <div className="edit-title">Edit f&#257;vr</div>
           <form>
             <div className="edit-form-top-container">
-              <div className="edit-form-left">
+              <div id={`favr-${favrId}-edit-form-left`} className="edit-form-left">
                 <div className="input-label">Title</div>
                 <input id={`favr-${favrId}-input-title`} className="text-input" type="text" name="title" defaultValue={this.props.favr.title} placeholder="Can someone pickup a burrito from the Owl's Nest?" />
                 <div className="input-label">$</div>

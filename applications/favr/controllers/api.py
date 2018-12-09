@@ -2,15 +2,6 @@
 import datetime
 epoch = datetime.datetime.utcfromtimestamp(0)
 
-@auth.requires_signature()
-def add_post():
-    post_id = db.post.insert(
-        post_title=request.vars.post_title,
-        post_content=request.vars.post_content,
-    )
-    # We return the id of the new post, so we can insert it along all the others.
-    return response.json(dict(post_id=post_id))
-
 #TODO: security decorators
 # @auth.requires_signature()
 def addFavr():
@@ -18,15 +9,26 @@ def addFavr():
     if request.env.http_origin:
         response.headers['Access-Control-Allow-Origin'] = request.env.http_origin
     if auth.user is not None:
-        favrId = db.favr.insert(
-            title=request.vars.title,
-            details=request.vars.details,
-            pickupLocation=request.vars.pickupLocation,
-            dropoffLocation=request.vars.dropoffLocation,
-            expirationTime=datetime.datetime.utcfromtimestamp(float(request.vars.expirationTime)/1000.0),
-            requestAmount=request.vars.requestAmount
-        )
-        return response.json(dict(favrId=favrId))
+        print('right here');
+
+        if (request.vars.title != '' and
+            request.vars.details != '' and
+            request.vars.pickupLocation != '' and
+            request.vars.dropoffLocation != '' # and
+            # request.vars.expirationTime and
+            # int(request.vars.requestAmount) >= 0 and
+            # int(request.vars.requestAmount) % 1 == 0
+            ):
+            favrId = db.favr.insert(
+                title=request.vars.title,
+                details=request.vars.details,
+                pickupLocation=request.vars.pickupLocation,
+                dropoffLocation=request.vars.dropoffLocation,
+                expirationTime=datetime.datetime.utcfromtimestamp(float(request.vars.expirationTime)/1000.0),
+                requestAmount=int(request.vars.requestAmount)
+            )
+            userRow = db(db.auth_user.email == auth.user.email).select().first()
+            return response.json(dict(message="success", favrId=favrId, firstName=userRow.first_name, lastName=userRow.last_name))
     return response.json(dict(message='error'))
 
 def removeFavr():
@@ -70,6 +72,21 @@ def acceptFavr():
             return response.json(dict(message='success', firstName=userRow.first_name, lastName=userRow.last_name))
     return response.json(dict(message='error'))
 
+def completeFavr():
+    # Allow cross origin requests (to test from react)
+    if request.env.http_origin:
+        response.headers['Access-Control-Allow-Origin'] = request.env.http_origin
+
+    row = db(db.favr.id == request.vars.favrId).select().first()
+    if row is not None:
+        present = datetime.datetime.now()
+        if present < row.expirationTime or auth.user.email == row.REFrequestedBy:
+            row.update_record(
+                isComplete='T'
+            )
+            return response.json(dict(message='success'))
+    return response.json(dict(message='error'))
+
 def updateFavr():
     # Allow cross origin requests (to test from react)
     if request.env.http_origin:
@@ -99,12 +116,12 @@ def getFavr():
             print(auth.user.email)
             rows = db(db.favr.isComplete == False
                       ).select(
-                        db.favr.ALL, orderby=db.favr.requestTime)
+                        db.favr.ALL, orderby=~db.favr.requestTime)
         elif request.vars.setCode == 'myAccepted':
             rows = db(db.favr.REFrequestedBy != auth.user.email and
                       db.favr.isComplete == False and
                       db.favr.REFfulfilledBy == auth.user.email).select(
-                        db.favr.ALL, orderby=db.favr.requestTime)
+                        db.favr.ALL, orderby=~db.favr.requestTime)
         elif request.vars.setCode == 'myRequested':
             # Weird query... didn't work properly with just first and second condition so
             #   I added a third (which should return an empty set, but instead returns
@@ -112,11 +129,11 @@ def getFavr():
             rows = db(db.favr.REFrequestedBy == auth.user.email and
                 db.favr.isComplete == 'F' and
                 db.favr.REFrequestedBy != auth.user.email).select(
-                  db.favr.ALL, orderby=db.favr.requestTime)
+                  db.favr.ALL, orderby=~db.favr.requestTime)
         else:
-            rows = db(db.favr.isComplete == 'F').select(db.favr.ALL, orderby=db.favr.requestTime)
+            rows = db(db.favr.isComplete == 'F').select(db.favr.ALL, orderby=~db.favr.requestTime)
     else:
-        rows = db(db.favr.isComplete == 'F').select(db.favr.ALL, orderby=db.favr.requestTime)
+        rows = db(db.favr.isComplete == 'F').select(db.favr.ALL, orderby=~db.favr.requestTime)
 
     if rows is not None:
         for row in rows:
