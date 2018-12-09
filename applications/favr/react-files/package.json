@@ -21,7 +21,9 @@
   },
   "watch": {
     "build": {
-      "patterns": ["src"],
+      "patterns": [
+        "src"
+      ],
       "extensions": "js,jsx, scss"
     }
   },
@@ -39,11 +41,15 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.3.1",
+    "moment": "^2.22.2",
     "node-sass": "^4.9.3",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.2",
+    "rc-datetime-picker": "^1.6.1",
+    "rc-time-picker": "^3.4.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
+    "react-modal": "^3.6.1",
     "react-redux": "^5.0.7",
     "react-redux-firebase": "^2.1.8",
     "react-router-dom": "^4.3.1",
