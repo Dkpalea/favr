@@ -174,10 +174,10 @@ const getProfileInformation = (context) => {
     )
 }
 
-const setProfileInformation = (characterCode) => {
+const setProfileInformation = () => {
     $.post(setProfileUrl,
         {
-            characterCode
+            //characterCode
         },
         function(data) {
             //need to give access to to profile_page

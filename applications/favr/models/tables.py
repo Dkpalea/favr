@@ -29,7 +29,8 @@ def get_user_last():
 def random_symbol():
     #"\ud83d\ude01"
     partial = "\ud83d\ude"
-    final = partial + random.randint(0, 64)
+    final = partial + hex(random.randint(0, 78))
+    print(final)
     return final
 
 def get_current_time():
@@ -57,7 +58,7 @@ db.define_table('favr',
                 )
 
 db.define_table('profile',
-                Field('profile_symbol'),
+                Field('profile_symbol', default = random_symbol()),
                 Field('user_email', default=get_user_email()),
                 Field('first_name', default=get_user_first()),
                 Field('last_name', default=get_user_last())

@@ -1,36 +1,50 @@
-ul {
-    margin: 0;
-}
-
-
 .profile-page-container {
-    background: linear-gradient(180deg, #083D77 67.96%, rgba(7, 43, 82, 0.95) 100%);
+  width: 100%;
+    overflow: hidden;
+  .profile-page-container_main {
+    background: #083D77;
     margin: 0;
     width: 100%;
-    max-height: 100vh;
-    height: 100vh;
+    //max-height: 100vh;
+    height: 100%;
     display: flex;
+    position: fixed;
     z-index: 5;
   }
-  
-.profile-page-card {
-    background: linear-gradient(180deg, #083D77 67.96%, rgba(7, 43, 82, 0.95) 100%);
-    //margin-left: 20%;
-    //margin-right: 60%;
+  .profile-page-container_feed {
+    background: #083D77;
+    margin: 0;
+    width: 100%;
+    //max-height: 100vh;
+    height: 100%;
     display: flex;
-    justify-content: left;
-    //width: 20%;
     position: fixed;
-    top: 20%;
+    z-index: 5;
+    display: none;
+  }
+}
+
+.profile-feed-container {
+  width: 100%;
+  padding-top: calc(3vw + 2.4rem);
+  display: flex;
+  justify-content: center;
+}
+
+.profile-card-container{
+    background: $gray;
+    display: flex;
+    position: relative;
+    justify-content: flex-start;
+    top:47%;
     left: 5%;
-    border-radius: 25px;
-    //left: 5vw;
-    //top: 5vw;
-    padding-right: 20px;
+    border-radius: 50px;
+    height: 20%;
+
 }
 
 .profile-page-symbol {
-    color: $gray;
+    color: $black;
     font-weight: bold;
     font-size: $xxl;
     //left: 5vw;
@@ -41,7 +55,7 @@ ul {
 }
 
 .profile-page-name {
-    color: $gray;
+    color: $black;
     font-size: $l;
     //left: 20%;
     //top:8vh;
@@ -49,9 +63,60 @@ ul {
     position: relative;
     font-family: Roboto, sans-serif;
 }
-  
-  .profile-feed-container {
+
+.show-feed {
     display: flex;
-    justify-content: flex-end;
-  }
+    width: 155px;
+    height: 40px;
+    border-radius: 50px;
+    margin-right: 20px;
+    transition: background-color .25s ease;
+    background: rgb(57, 113, 173);
+    border-color: $white;
+
+    position: relative;
+    top: 50%;
+    left: 50%;
+    /*
+    position: absolute;
+    //width: 45px;
+    //height: 45px;
+    //border-radius: 50%;
+    right: 10%;
+    top: 20%;
+    //background: #0e90d2;
+    font-family: Roboto, sans-serif;
+    border-radius: 25px;*/
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+    cursor: pointer;
+    div {
+        font-family: Roboto, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        line-height: normal;
+        font-size: 18px;
+        text-align: center;
+        letter-spacing: 0.04em;
   
+        margin: auto;
+        color: $white;
+      }
+    
+  }
+
+  .back-favr-button {
+    position: fixed;
+    width: 45px;
+    height: 45px;
+    //border-radius: 50%;
+    left: 5%;
+    top: 10rem;
+    //background: #0e90d2;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+    cursor: pointer;
+    z-index: 3;
+  }

@@ -175,7 +175,7 @@ def get_post_list():
     # For homogeneity, we always return a dictionary.
     return response.json(dict(post_list=results))
 
-#@auth.requires_signature()
+@auth.requires_signature()
 def get_profile_information():
     results = []
     #print("reach here at least?")
@@ -199,6 +199,7 @@ def set_profile_information():
     profile = None
     if auth.user is not None:
         profile = db.profile.update_or_insert(
+            db.profile.user_email == auth.user.email,
             profile_symbol = request.vars.characterCode
         )
     #print(profile)
