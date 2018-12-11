@@ -122,3 +122,6 @@ CREATE TABLE "thumb"(
     "thumb_state" CHAR(512)
 );
 success!
+timestamp: 2018-12-10T16:21:36.829000
+ALTER TABLE "profile" ADD "profile_symbol_set" CHAR(1);
+success!

@@ -10,6 +10,75 @@
     display: flex;
     position: fixed;
     z-index: 5;
+    .profile-card-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 20% 0 20% 20%;
+        background: $gray;
+        border-radius: 25px;
+        width: 20%;
+        .profile-page-symbol {
+            color: $black;
+            //font-weight: bold;
+            font-size: $xxl;
+            display: flex;
+            padding: 5%;
+
+
+        }
+        .profile-page-name {
+
+        }
+    }
+    .profile-page-buttons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-left: 20%;
+
+        .show-feed {
+            display: flex;
+            width: 155px;
+            height: 40px;
+            border-radius: 50px;
+            margin-right: 20px;
+            transition: background-color .25s ease;
+            background: rgb(57, 113, 173);
+            border-color: $white;
+        
+            position: relative;
+            justify-content: flex-end;
+            align-items: center;
+            /*
+            position: absolute;
+            //width: 45px;
+            //height: 45px;
+            //border-radius: 50%;
+            right: 10%;
+            top: 20%;
+            //background: #0e90d2;
+            font-family: Roboto, sans-serif;
+            border-radius: 25px;*/
+            -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+            -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+            box-sizing: border-box;
+            cursor: pointer;
+            div {
+                font-family: Roboto, sans-serif;
+                font-style: normal;
+                font-weight: normal;
+                line-height: normal;
+                font-size: 18px;
+                text-align: center;
+                letter-spacing: 0.04em;
+          
+                margin: auto;
+                color: $white;
+              }
+            
+          }
+    }
   }
   .profile-page-container_feed {
     background: #083D77;
@@ -31,6 +100,7 @@
   justify-content: center;
 }
 
+/*
 .profile-card-container{
     background: $gray;
     display: flex;
@@ -87,8 +157,10 @@
     //background: #0e90d2;
     font-family: Roboto, sans-serif;
     border-radius: 25px;*/
+    /*
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    //-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    /*
     box-sizing: border-box;
     cursor: pointer;
     div {
@@ -105,7 +177,7 @@
       }
     
   }
-
+*/
   .back-favr-button {
     position: fixed;
     width: 45px;

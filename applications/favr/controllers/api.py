@@ -200,7 +200,8 @@ def set_profile_information():
     if auth.user is not None:
         profile = db.profile.update_or_insert(
             db.profile.user_email == auth.user.email,
-            profile_symbol = request.vars.characterCode
+            #profile_symbol = request.vars.characterCode
+            profile_symbol_set = request.vars.symbolSet
         )
     #print(profile)
     return response.json(dict(profile_info=profile))

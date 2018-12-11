@@ -25,11 +25,18 @@ class MainPage extends Component {
     getFavr(`feedFavr`, this);
 
     //console.log("reached?");
-    setProfileInformation();
+    setProfileInformation(true);
+    this.randomEmojiClean();
     getProfileInformation(this);
     //console.log("resolved?");
     //console.log(this.state);
   }
+
+  /*functionally unnessasary after db restructure
+  randomEmojiClean(){
+    this.state.profileSymbol = this.state.profileSymbol.replace("/\\\\/g", "\\");
+  }
+  */
 
   componentWillReceiveProps(nextProps, nextContext) {
     console.log(storeState.feedFavrs);
@@ -58,9 +65,11 @@ class MainPage extends Component {
                 {this.state.lastName}
             </div>
         </div>
+        <div className="profile-page-buttons">
             <button className="show-feed" onClick={() => this.showFeedbutton()}>
                 <div>Show F&#257;vrs</div>
             </button>
+        </div>
         </div>
         <div className="profile-feed-container">
             <img

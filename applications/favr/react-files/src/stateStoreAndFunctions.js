@@ -165,7 +165,8 @@ const getProfileInformation = (context) => {
             //need to give access to to profile_page
             console.log('profileinformation');
             console.log(data);
-            console.log(data.profile_info.first_name);
+            console.log("what in tarnation is going on");
+            console.log(data.profile_info[0].profile_symbol);
             //context.setState
             context.setState({firstName: data.profile_info[0].first_name,
                                 lastName: data.profile_info[0].last_name,
@@ -174,13 +175,12 @@ const getProfileInformation = (context) => {
     )
 }
 
-const setProfileInformation = () => {
+const setProfileInformation = (symbolSet) => {
     $.post(setProfileUrl,
         {
-            //characterCode
+            symbolSet
         },
         function(data) {
-            //need to give access to to profile_page
             console.log('setInformation');
             console.log(data);
         }
