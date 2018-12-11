@@ -26,7 +26,7 @@ class MainPage extends Component {
 
     //console.log("reached?");
     setProfileInformation(true);
-    this.randomEmojiClean();
+    //this.randomEmojiClean();
     getProfileInformation(this);
     //console.log("resolved?");
     //console.log(this.state);
