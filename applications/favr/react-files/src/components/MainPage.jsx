@@ -24,6 +24,7 @@ class MainPage extends Component {
     return (
       <div className="main-page-container">
         <Navbar />
+        {/*<div className="test">123</div>*/}
         <div className="main-feed-container">
           <Feed feedFavrs={this.state.feedFavrsState} />
         </div>

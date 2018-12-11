@@ -20315,3 +20315,17 @@
 127.0.0.1, 2018-12-08 18:17:17, GET, /favr/static/images/addFavrButton.svg, HTTP/1.1, 200, 0.000386
 127.0.0.1, 2018-12-08 18:17:18, GET, /favicon.ico, HTTP/1.1, 400, 0.000207
 127.0.0.1, 2018-12-08 18:17:29, POST, /favr/api/removeFavr, HTTP/1.1, 200, 0.018799
+127.0.0.1, 2018-12-08 18:32:11, GET, /favr/default/index, HTTP/1.1, 200, 0.023191
+127.0.0.1, 2018-12-08 18:32:11, GET, /favr/static/js/default_index.js, HTTP/1.1, 200, 0.000512
+127.0.0.1, 2018-12-08 18:32:12, POST, /favr/api/getFavr, HTTP/1.1, 200, 0.020966
+127.0.0.1, 2018-12-08 18:32:12, GET, /favr/static/images/addFavrButton.svg, HTTP/1.1, 200, 0.000423
+127.0.0.1, 2018-12-08 18:32:13, GET, /favicon.ico, HTTP/1.1, 400, 0.000294
+127.0.0.1, 2018-12-08 18:58:58, GET, /favr/default/index, HTTP/1.1, 200, 0.023271
+127.0.0.1, 2018-12-08 18:58:58, GET, /favr/static/js/default_index.js, HTTP/1.1, 200, 0.000473
+127.0.0.1, 2018-12-08 18:58:58, POST, /favr/api/getFavr, HTTP/1.1, 200, 0.022757
+127.0.0.1, 2018-12-08 18:58:59, GET, /favr/static/images/addFavrButton.svg, HTTP/1.1, 200, 0.000473
+127.0.0.1, 2018-12-08 18:58:59, GET, /favicon.ico, HTTP/1.1, 400, 0.000251
+127.0.0.1, 2018-12-08 19:01:11, GET, /favr/default/index, HTTP/1.1, 200, 0.016201
+127.0.0.1, 2018-12-08 19:01:11, GET, /favr/static/js/default_index.js, HTTP/1.1, 200, 0.000384
+127.0.0.1, 2018-12-08 19:01:11, POST, /favr/api/getFavr, HTTP/1.1, 200, 0.026224
+127.0.0.1, 2018-12-08 19:01:12, GET, /favicon.ico, HTTP/1.1, 400, 0.000458
