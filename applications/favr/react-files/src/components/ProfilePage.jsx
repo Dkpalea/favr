@@ -83,9 +83,11 @@ class ProfilePage extends Component {
                 {this.state.profileSymbol}
             </div>
             <div className="profile-page-name">
-                Welcome! <br></br>
-                {this.state.firstName + " "}
-                {this.state.lastName}
+                <div className="profile-page-welcome">Welcome!</div>
+                <div className="profile-user-name">
+                    {this.state.firstName + " "}
+                    {this.state.lastName}
+                </div>
             </div>
         </div>
         <div className="profile-page-buttons">

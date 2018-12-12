@@ -32,6 +32,14 @@
         .profile-page-name {
             justify-content: center;
             padding: 5%;
+            .profile-page-welcome {
+                font-size: $l;
+                font-weight: bold;
+            }
+            .profile-user-name {
+                font-size: $m;
+                padding: 5px;
+            }
 
         }
     }

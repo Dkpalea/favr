@@ -224,7 +224,7 @@ class Favr extends Component {
         </div>
         {/* Upper stuff */}
         <div className="favr-card-upper-info">
-          <div className="favr-card-profile-pic" />
+          <div className="favr-card-profile-pic" > {REFrequestedBy.profilePicCode} </div>
           <div className="favr-card-upper-info-text">
             <div className="favr-card-username">{REFrequestedBy.email===loggedInUserEmail?(`You!`):(`${REFrequestedBy.firstName} ${REFrequestedBy.lastName}`)}</div>
             <div className="favr-card-upper-info-text-under">
@@ -246,7 +246,7 @@ class Favr extends Component {
             <div className="flex-container">
               <span className={`claimed-label favr-card-info-font ${REFfulfilledBy.email===null?`visibility-hidden`:``}`}>Claimed by: </span>
               <div className={`favr-card-lower-info-pic-text-container ${REFfulfilledBy.email===null?`visibility-hidden`:``}`}>
-                <div className="favr-card-profile-pic" />
+                <div className="favr-card-profile-pic" >{REFfulfilledBy.profilePicCode}</div>
                 <div className="favr-card-lower-info-text">
                   <div className="favr-card-username">{REFfulfilledBy.email===loggedInUserEmail?(`You!`):(`${REFfulfilledBy.firstName} ${REFfulfilledBy.lastName}`)}</div>
                   {/*<div className="favr-card-info-font favr-card-lower-info-text-under">started 10min ago</div>*/}
@@ -369,13 +369,13 @@ Favr.propTypes = {
     expirationTime: PropTypes.number.isRequired,
     REFrequestedBy: PropTypes.shape({
       email: PropTypes.string.isRequired,
-      // profilePicCode: PropTypes.string.isRequired,
+      profilePicCode: PropTypes.string.isRequired,
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
     }).isRequired,
     REFfulfilledBy: PropTypes.shape({
       email: PropTypes.string,
-      // profilePicCode: PropTypes.string.isRequired,
+      profilePicCode: PropTypes.string.isRequired,
       firstName: PropTypes.string,
       lastName: PropTypes.string,
     }),
