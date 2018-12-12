@@ -228,7 +228,8 @@ const getProfileInformation = (context) => {
                                 lastName: data.profile_info[0].last_name,
                                 profileSymbol: data.profile_info[0].profile_symbol});
         }
-    )
+    );
+    //^ added on
 }
 
 const setProfileInformation = (symbolSet) => {
@@ -243,4 +244,18 @@ const setProfileInformation = (symbolSet) => {
         );
 }
 
-export { storeState, favrObjectSchema, addFavr, getFavr, removeFavr, updateFavr, acceptFavr, cancelAcceptedFavr, alertExpiredFavr, getProfileInformation, setProfileInformation };
+const getAllProfiles = (context) => {
+    $.post(getAllProfileUrl,
+        {
+
+        },
+        function(data) {
+            context.setState({
+                
+            });
+
+        }
+        );
+}
+
+export { storeState, favrObjectSchema, addFavr, getFavr, removeFavr, updateFavr, acceptFavr, cancelAcceptedFavr, alertExpiredFavr, getProfileInformation, setProfileInformation, getAllProfiles };

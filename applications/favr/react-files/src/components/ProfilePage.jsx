@@ -3,8 +3,9 @@ import Feed from './Feed';
 import Navbar from "./Navbar";
 import { getFavr, getProfileInformation, setProfileInformation } from '../stateStoreAndFunctions';
 import { Redirect } from 'react-router-dom';
+import { withRouter} from 'react-router';
 
-class MainPage extends Component {
+class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.showFeedbutton = this.showFeedbutton.bind(this);
@@ -15,7 +16,7 @@ class MainPage extends Component {
         firstName: "",
         lastName: "", 
         showFeed: false,
-        back: false,
+        back: false
     };
   }
 
@@ -33,14 +34,14 @@ class MainPage extends Component {
   }
 
   logout(){
-
+    window.location.replace("/favr/default/user/logout/");
   }
 
   componentWillMount() {
     getFavr(`feedFavr`, this);
 
     //console.log("reached?");
-    setProfileInformation(true);
+    //setProfileInformation(true);
     //this.randomEmojiClean();
     getProfileInformation(this);
     //console.log("resolved?");
@@ -68,6 +69,9 @@ class MainPage extends Component {
     // const now = new Date(Date.now() + 100000);
     if(this.state.back){
         return <Redirect to="/"/>
+    }
+    if(this.state.logout){
+        return <Redirect to="/favr/default/user/logout/"/>
     }
     return (
       <div className="profile-page-container">
@@ -98,7 +102,7 @@ class MainPage extends Component {
         </div>
         <div className="profile-feed-container">
             <img
-            src={addFavrButtonImageSource}
+            src={backToProfileButtonSource}
             onClick={() => this.showFeedbutton()}
             className="back-favr-button"
           />
@@ -111,4 +115,4 @@ class MainPage extends Component {
   }
 }
 
-export default MainPage;
+export default ProfilePage;

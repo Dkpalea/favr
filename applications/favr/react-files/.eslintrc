@@ -18,7 +18,8 @@
     "cancelAcceptedFavrUrl": false,
     "addFavrButtonImageSource": false,
     "feedComponentHandle": false,
-    "completeFavrUrl": false
+    "completeFavrUrl": false,
+    "logoutUrl":false
   },
   "rules": {
     "no-console": "off",

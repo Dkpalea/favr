@@ -14,7 +14,7 @@ const AppRouter = () => (
         <Route path="/" component={MainPage} exact />
         <Route path="/navbar" component={Navbar} exact />
         <Route path="/profile" component={ProfilePage} exact />
-        <Route path="/profile/feed" component={MainPage} exact/>
+        {/*<Route path="/profile/feed" component={MainPage} exact/>*/}
         {/*<Route path="/:topicLabel/:topicId/node/:nodeId?/:viewMode?" component={MainPage} />*/}
         {/*<Route component={NotFoundPage} />*/}
       </Switch>

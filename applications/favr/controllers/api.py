@@ -219,17 +219,22 @@ def get_profile_information():
     if auth.user is not None:
         #print("possibly here?")
         #print(db.profile[5])
+        
+        #We want the profile info set before we attempt the query
+        db.profile.update_or_insert(db.profile.user_email == auth.user.email, user_email=auth.user.email)
         row = db.profile(db.profile.user_email == auth.user.email)
+
         #print("this is the row")
         #print(row)
         results.append(dict(
-            first_name = row.first_name,
-            last_name = row.last_name,
+            first_name = auth.user.first_name,
+            last_name = auth.user.last_name,
             profile_symbol = row.profile_symbol,
         ))
         #print(results)
     return response.json(dict(profile_info=results))
 
+#deprecated
 @auth.requires_signature()
 def set_profile_information():
     profile = None
@@ -237,11 +242,26 @@ def set_profile_information():
         profile = db.profile.update_or_insert(
             db.profile.user_email == auth.user.email,
             #profile_symbol = request.vars.characterCode
+            user_email=auth.user.email,
+            #first_name=auth.user.first_name,
+            #last_name=auth.user.last_name,
             profile_symbol_set = request.vars.symbolSet
         )
     #print(profile)
     return response.json(dict(profile_info=profile))
 
+@auth.requires_signature()
+def get_all_profile():
+    results = []
+    rows = db.profile().select(db.profile.ALL)
+    for row in rows:
+        if nows is not None:
+            results.append(dict(
+                profile_symbol = row.profile_symbol,
+                user_email = row.user_email
+            ))
+    return response.json(dict(profiles=results))
+    
 
 
     

@@ -151,8 +151,8 @@ db.define_table('profile',
                 Field('profile_symbol', default = random_symbol()),
                 #Field('profile_symbol'),
                 Field('user_email', default=get_user_email()),
-                Field('first_name', default=get_user_first()),
-                Field('last_name', default=get_user_last()),
+                #Field('first_name', default=get_user_first()),
+                #Field('last_name', default=get_user_last()),
                 Field('profile_symbol_set', 'boolean', default=False)
                 )
 
