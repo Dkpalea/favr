@@ -6,6 +6,9 @@
   z-index: 1;
 
   .logo {
+    display: inline;
+    position: absolute;
+    left: 47%;
     font-family: Roboto, sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -15,5 +18,53 @@
     letter-spacing: 0.04em;
 
     color: $blue;
+  }
+
+  .login-signup {
+    display: inline;
+    position: absolute;
+    right: 3%;
+    top: 1.2vw;
+    z-index: 2;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: $m;
+    letter-spacing: 0.04em;
+    color: $blue;
+  }
+
+  .login-signup:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .profile {
+    display: inline;
+    position: absolute;
+    right: 3%;
+    top: 1.2vw;
+    z-index: 2;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: $m;
+    letter-spacing: 0.04em;
+    color: $blue;
+
+    .profile-image:hover {
+      cursor: pointer;
+    }
+
+    .profile-names {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .display-none {
+    display: none;
   }
 }

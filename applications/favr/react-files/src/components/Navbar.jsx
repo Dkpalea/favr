@@ -1,34 +1,38 @@
-import React from 'react';
-import {addFavr} from '../stateStoreAndFunctions';
+import React, { Component } from 'react';
+import { getProfileInformation } from '../stateStoreAndFunctions';
+import {Link} from "react-router-dom";
 
-const now = new Date(Date.now() + 100000);
+class Navbar extends Component {
 
-const favr = {
-  favrId: `123`,
-  title: `myTitle`,
-  details: `myDetails`,
-  pickupLocation: `fromHere`,
-  dropoffLocation: `toThere`,
-  expirationTime: now.getTime(),
-  REFrequestedBy: {
-    email: `12345@12345.com`,
-    profilePicCode: ``,
-    firstName: `firstName`,
-    lastName: `lastName`,
-  },
-  REFfulFilledBy: {
-    email: `1234@1234.com`,
-    profilePicCode: ``,
-    firstName: `Dustin`,
-    lastName: `Palea`,
-  },
-  requestAmount: 12,
-};
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: ``,
+      lastName: ``,
+      profileSymbol: ``,
+    };
+  }
 
-const Navbar = () => (
-  <div className="navbar">
-    <div onClick={() => addFavr(favr.title, favr.details, favr.pickupLocation, favr.dropoffLocation, favr.expirationTime, favr.requestAmount)} className="logo">f&#257;vr</div>
-  </div>
-);
+  componentWillMount() {
+    if (userIsLoggedIn) {
+      getProfileInformation(this);
+    }
+  }
+
+  render() {
+    return (
+      <div className="navbar">
+        <div className="logo">f&#257;vr</div>
+        <span className={`login-signup ${userIsLoggedIn?`display-none`:``}`} onClick={() => {window.location.replace(`/favr/default/user/login/`);}}>Login / Signup</span>
+        <span className={`profile ${userIsLoggedIn?``:`display-none`}`}>
+          <Link to="/profile" style={{ textDecoration: `none` }}>
+            <span className="profile-image">{this.state.profileSymbol} </span>
+            <span className="profiles-names">{this.state.firstName} {this.state.lastName}</span>
+          </Link>
+        </span>
+      </div>
+    );
+  }
+}
 
 export default Navbar;
