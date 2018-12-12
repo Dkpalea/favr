@@ -111,6 +111,7 @@ def getFavr():
         response.headers['Access-Control-Allow-Origin'] = request.env.http_origin
     results = []
     if auth.user is not None:
+        db.profile.update_or_insert(db.profile.user_email == auth.user.email, user_email=auth.user.email)
         if request.vars.setCode == 'feedFavr':
             # db.favr.REFrequestedBy == auth.user.email and
             # print(auth.user.email)
@@ -140,16 +141,33 @@ def getFavr():
         for row in rows:
             REFrequestedByRow = db(db.auth_user.email == row.REFrequestedBy).select(
                 db.auth_user.first_name, db.auth_user.last_name).first()
+            
+            profRow = db.profile(db.profile.user_email == row.REFrequestedBy)
+            print(profRow)
+
             REFrequestedBy = dict(
                 email = row.REFrequestedBy,
                 firstName = REFrequestedByRow.first_name,
                 lastName = REFrequestedByRow.last_name,
+                profilePicCode = profRow.profile_symbol
             )
-            REFfulfilledBy = dict(
-                email=row.REFfulfilledBy,
-                firstName=None,
-                lastName=None,
-            )
+            profRow = db.profile(db.profile.user_email == row.REFfulfilledBy)
+            print(profRow)
+            if profRow is None:
+                REFfulfilledBy = dict(
+                    email=row.REFfulfilledBy,
+                    firstName=None,
+                    lastName=None,
+                    profilePicCode = ""
+                )
+            else:
+                REFfulfilledBy = dict(
+                    email=row.REFfulfilledBy,
+                    firstName=None,
+                    lastName=None,
+                    profilePicCode = profRow.profile_symbol
+                )
+                
             REFfulfilledByRow = db(db.auth_user.email == row.REFfulfilledBy).select(
                 db.auth_user.first_name, db.auth_user.last_name).first()
             if REFfulfilledByRow is not None:

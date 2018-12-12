@@ -51,6 +51,7 @@ const addFavr = (context, title, requestAmount, pickupLocation, dropoffLocation,
           email: loggedInUserEmail,
           firstName: data.firstName,
           lastName: data.lastName,
+          profilePicCode: profileEmoji
         },
         REFfulfilledBy: {
           email: null,
@@ -224,6 +225,7 @@ const getProfileInformation = (context) => {
             console.log("what in tarnation is going on");
             console.log(data.profile_info[0].profile_symbol);
             //context.setState
+            profileEmoji = data.profile_info[0].profile_symbol;
             context.setState({firstName: data.profile_info[0].first_name,
                                 lastName: data.profile_info[0].last_name,
                                 profileSymbol: data.profile_info[0].profile_symbol});

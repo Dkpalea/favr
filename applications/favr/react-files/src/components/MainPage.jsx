@@ -13,6 +13,7 @@ class MainPage extends Component {
     console.log("reached?");
     getFavr(`feedFavr`, this);
     console.log("resolved?");
+    
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
