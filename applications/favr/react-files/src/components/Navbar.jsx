@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { getProfileInformation } from '../stateStoreAndFunctions';
 import {Link} from "react-router-dom";
+import { getProfileInformation } from '../stateStoreAndFunctions';
 
 class Navbar extends Component {
 
