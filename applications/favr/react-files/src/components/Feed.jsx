@@ -130,7 +130,7 @@ class Feed extends Component {
               </button>
             </div>
           </Modal>
-          <img src={addFavrButtonImageSource} onClick={() => this.addButtonCLicked()} className="add-favr-button" />
+          <img src={backToProfileButtonSource} onClick={() => this.addButtonCLicked()} className="add-favr-button" />
           <div className="favr-feed">
             {favrComponents}
           </div>

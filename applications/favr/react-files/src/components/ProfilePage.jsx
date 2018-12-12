@@ -15,7 +15,8 @@ class MainPage extends Component {
         firstName: "",
         lastName: "", 
         showFeed: false,
-        back: false};
+        back: false,
+    };
   }
 
   showFeedbutton(){
@@ -29,6 +30,10 @@ class MainPage extends Component {
       this.state.back = !this.state.back;
       this.forceUpdate();
     //return <Redirect to="/"/>
+  }
+
+  logout(){
+
   }
 
   componentWillMount() {
@@ -85,6 +90,9 @@ class MainPage extends Component {
             </button>
             <button className="show-feed" onClick={() => this.backToMainFeed()}>
                 <div>Back to Main</div>
+            </button>
+            <button className="show-feed" onClick={() => this.logout()}>
+                <div>Logout</div>
             </button>
         </div>
         </div>

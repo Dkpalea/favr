@@ -24,8 +24,11 @@
       const cancelAcceptedFavrUrl = `{{=URL('api', 'cancelAcceptedFavr', user_signature=True)}}`;
       const alertExpiredFavrUrl = `{{=URL('api', 'alertExpiredFavr', user_signature=True)}}`;
       const addFavrButtonImageSource = `{{=URL('static', 'images/addFavrButton.svg')}}`;
+      const backToProfileButtonSource = `{{=URL('static', 'images/backToProfileButton.svg')}}`;
       const profileUrl = `{{=URL('api', 'get_profile_information', user_signature=True)}}`;
       const setProfileUrl = `{{=URL('api', 'set_profile_information', user_signature=True)}}`;
+      const logoutUrl = `{{URL('default', 'user', args='logout')}}`;
+
     </script>
     <div id="app"></div>
     <script type="text/javascript" src="{{=URL('static', 'js/default_index.js')}}"></script>
