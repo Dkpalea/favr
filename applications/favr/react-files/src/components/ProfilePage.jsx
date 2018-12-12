@@ -2,16 +2,20 @@ import React, {Component} from 'react';
 import Feed from './Feed';
 import Navbar from "./Navbar";
 import { getFavr, getProfileInformation, setProfileInformation } from '../stateStoreAndFunctions';
+import { Redirect } from 'react-router-dom';
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
     this.showFeedbutton = this.showFeedbutton.bind(this);
+    this.backToMainFeed = this.backToMainFeed.bind(this);
+    
     this.state = { feedFavrsState: storeState.feedFavrs,
         profileSymbol: "",
         firstName: "",
         lastName: "", 
-        showFeed: false};
+        showFeed: false,
+        back: false};
   }
 
   showFeedbutton(){
@@ -19,6 +23,12 @@ class MainPage extends Component {
     console.log(this.state.showFeed);
     this.forceUpdate();
 
+  }
+
+  backToMainFeed(){
+      this.state.back = !this.state.back;
+      this.forceUpdate();
+    //return <Redirect to="/"/>
   }
 
   componentWillMount() {
@@ -51,6 +61,9 @@ class MainPage extends Component {
     console.log(this.state.feedFavrsState);
     storeState.feedComponentHandle = this;
     // const now = new Date(Date.now() + 100000);
+    if(this.state.back){
+        return <Redirect to="/"/>
+    }
     return (
       <div className="profile-page-container">
         <Navbar />
@@ -61,6 +74,7 @@ class MainPage extends Component {
                 {this.state.profileSymbol}
             </div>
             <div className="profile-page-name">
+                Welcome! <br></br>
                 {this.state.firstName + " "}
                 {this.state.lastName}
             </div>
@@ -68,6 +82,9 @@ class MainPage extends Component {
         <div className="profile-page-buttons">
             <button className="show-feed" onClick={() => this.showFeedbutton()}>
                 <div>Show F&#257;vrs</div>
+            </button>
+            <button className="show-feed" onClick={() => this.backToMainFeed()}>
+                <div>Back to Main</div>
             </button>
         </div>
         </div>
