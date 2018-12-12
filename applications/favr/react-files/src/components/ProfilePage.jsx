@@ -62,8 +62,8 @@ class ProfilePage extends Component {
     //console.log(this.state);
     this.state.feedFavrsState = this.state.feedFavrsState.filter(function(el) {
         return  el.REFrequestedBy.email == loggedInUserEmail ||
-                el.REFfulfilledBy.email == loggedInUserEmail
-    })
+                el.REFfulfilledBy.email == loggedInUserEmail;
+    });
     console.log(this.state.feedFavrsState);
     storeState.feedComponentHandle = this;
     // const now = new Date(Date.now() + 100000);
