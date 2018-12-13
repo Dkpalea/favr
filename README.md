@@ -42,6 +42,6 @@ Web2Py operates as it would with any other web application, simply hosting `$/vi
     - Same as above but automatic, re-compiles js bundle by watching react-files folder for changes `npm run watch`
     - Local host of react only (doesn't work with API but is useful for testing styles) `npm start`
 - run from `favr-final-project/applications/favr`
-    - Start web2py `python web2py.py`. Will likely need to delete all database files on first launch. Delete all files in `favr-final-project/applications/favr`.
+    - Start web2py `python web2py.py`. Will likely need to delete all database files on first launch. Delete all contents of `favr-final-project/applications/favr/databases`.
     
 Note: we've found that the best workflow is to keep both the `npm run watch` command running at the same time as the `python web2py.py` server (in separate terminal tabs)
