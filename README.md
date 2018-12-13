@@ -14,7 +14,7 @@ Dustin Palea - dpalea@ucsc.edu
 - We've used Webpack with React in order to bundle all of our javascript and style files.
 These files are exported to the single minified file `favr-final-project/applications/favr/static/js/default_index.js` (style files exist as objects within this bundle).
 - To recompile this bundle, run `npm run build` from the React root directory.
-- To run a development server (irrespective of Web2Py) run `npm start` from the React root directory. This will host at `localhost:8080`. Keep in mind that this development server is kept in memory and does not read from the bundle file mentioned in the fourth bullet above. EDIT: Won't work on current branch (last minute global var changes that haven't been updated in the index that this server uses)
+- To run a development server (irrespective of Web2Py) run `npm start` from the React root directory. This will host at `localhost:8080`. Keep in mind that this development server is kept in memory and does not read from the bundle file mentioned in the fourth bullet above. EDIT: Won't work in current branch (last minute global var changes that haven't been updated in the index that this server uses)
 
 **Organization and Execution**
 
@@ -42,6 +42,6 @@ Web2Py operates as it would with any other web application, simply hosting `$/vi
     - Same as above but automatic, re-compiles js bundle by watching react-files folder for changes `npm run watch`
     - Local host of react only (doesn't work with API but is useful for testing styles) `npm start`
 - run from `favr-final-project/applications/favr`
-    - Start web2py `python web2py.py`
+    - Start web2py `python web2py.py`. Will likely need to delete all database files on first launch. Delete all files in `favr-final-project/applications/favr`.
     
 Note: we've found that the best workflow is to keep both the `npm run watch` command running at the same time as the `python web2py.py` server (in separate terminal tabs)
