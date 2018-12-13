@@ -17,6 +17,7 @@ These files are exported to the single minified file `favr/applications/favr/sta
 - To run a development server (irrespective of Web2Py) run `npm start` from the React root directory. This will host at `localhost:8080`. Keep in mind that this development server is kept in memory and does not read from the bundle file mentioned in the fourth bullet above. EDIT: Won't work in current branch (last minute global var changes that haven't been updated in the index that this server uses)
 
 **Organization and Execution**
+
 We use `~` to denote the React root directory (see bullet two in the above section).
  
 Within the React root directory there is a `src` file which contains all of our front-end source code. This includes `.js`, `.jsx`, and `.css`/`.scss` files. Quick note, `jsx` files are a combined syntax of html and javascript. All of our API calls are defined in `~/src/stateStoreAndFunctions.js`
